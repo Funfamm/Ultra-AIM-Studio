@@ -36,14 +36,23 @@ npm run db:push
 This creates all tables in Neon without needing migrations.
 
 ### 5. Create the first admin user
+
+Set your admin credentials in `.env` before running the seed:
+```bash
+SEED_ADMIN_EMAIL="admin@yourdomain.com"
+SEED_ADMIN_PASSWORD="your-strong-password-here"
+```
+
+Do not commit `.env`. Do not use a weak or default password.
+
+Then run:
 ```bash
 npx ts-node prisma/seed.ts
 ```
-Default credentials:
-- Email: `admin@aimstudio.com`
-- Password: `changeme123`
 
-**Change the password after first login!**
+The seed will exit with an error if `SEED_ADMIN_PASSWORD` is not set.
+
+**Change the password after first login.**
 
 Alternatively, after `db:push` run:
 ```bash

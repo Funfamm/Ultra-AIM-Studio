@@ -7,9 +7,13 @@
 import { PrismaClient } from "@prisma/client";
 import { writeFileSync }  from "fs";
 
-const OLD_URL = "postgresql://neondb_owner:npg_2jrMNVBU3IkY@ep-dry-resonance-amkkbusx-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
-const NEW_URL = process.env.DATABASE_URL; // loaded from .env by Prisma default
+const OLD_URL = process.env.SOURCE_DATABASE_URL;
+const NEW_URL = process.env.DATABASE_URL;
 
+if (!OLD_URL) {
+  console.error("SOURCE_DATABASE_URL not set. Set it to the old database connection string before running.");
+  process.exit(1);
+}
 if (!NEW_URL) {
   console.error("DATABASE_URL not set. Run: node -r dotenv/config scripts/migrate-users-dryrun.mjs");
   process.exit(1);
