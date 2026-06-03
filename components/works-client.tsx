@@ -90,12 +90,13 @@ const RAILS: Rail[] = [
 ];
 
 type Props = {
-  works: Work[];
+  works:       Work[];
   collection?: string;
   isLoggedIn?: boolean;
+  pageBg?:     string | null;
 };
 
-export default function WorksClient({ works, collection, isLoggedIn = false }: Props) {
+export default function WorksClient({ works, collection, isLoggedIn = false, pageBg = null }: Props) {
   const [tab, setTab] = useState<Tab>(() => {
     if (collection && COLLECTION_TO_TAB[collection]) return COLLECTION_TO_TAB[collection];
     return "ALL";
@@ -187,7 +188,10 @@ export default function WorksClient({ works, collection, isLoggedIn = false }: P
   return (
     <main>
       {/* ── Hero ─────────────────────────────────────── */}
-      <section className="wc-hero">
+      <section
+        className="wc-hero"
+        style={pageBg ? { backgroundImage: `url(${pageBg})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+      >
         <div className="wc-hero-bg">
           <HeroRotator items={heroItems} />
           <div className="wc-hero-gradient" />

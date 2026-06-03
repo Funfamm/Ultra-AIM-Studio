@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getPageMedia } from "@/lib/page-media";
 import WorksClient from "@/components/works-client";
 import type { Metadata } from "next";
 
@@ -25,10 +26,23 @@ async function getWorks() {
 }
 
 export default async function WorksPage({ searchParams }: Props) {
-  const [works, { collection }, session] = await Promise.all([
+  const [works, { collection }, session, worksMedia] = await Promise.all([
     getWorks(),
     searchParams,
     auth(),
+    getPageMedia("works"),
   ]);
-  return <WorksClient works={works} collection={collection} isLoggedIn={!!session?.user} />;
+
+  // First active IMAGE item for the works page background canvas
+  const bgItem = worksMedia.find((m) => m.mediaType === "IMAGE") ?? null;
+  const pageBg = bgItem?.imageUrl || bgItem?.posterUrl || null;
+
+  return (
+    <WorksClient
+      works={works}
+      collection={collection}
+      isLoggedIn={!!session?.user}
+      pageBg={pageBg}
+    />
+  );
 }
