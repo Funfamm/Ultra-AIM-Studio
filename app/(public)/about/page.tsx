@@ -26,6 +26,21 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── 1.5 Cinematic Image ───────────────────────── */}
+      <section className="ab-image-sect">
+        <div className="container-app">
+          <div className="ab-hero-image-wrap">
+            <img 
+              src="/images/about-cinematic.jpg"
+              alt="AIM Studio — cinematic film frame" 
+              className="ab-hero-image"
+              loading="lazy"
+            />
+            <div className="ab-hero-image-overlay" />
+          </div>
+        </div>
+      </section>
+
       {/* ── 2. Manifesto Card ──────────────────────────── */}
       <section className="ab-manifesto-sect">
         <div className="container-app">

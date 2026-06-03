@@ -171,7 +171,7 @@ export default async function HomePage() {
       {/* ── Featured Works ──────────────────────────── */}
       <FilmRail
         title="Featured Works"
-        label="— Now Streaming"
+        label="— Original Cinema"
         href="/works"
         films={featured}
         priority
@@ -208,7 +208,7 @@ export default async function HomePage() {
 
             {/* Left — headline + copy + CTAs */}
             <div className="si-left">
-              <span className="si-eyebrow">Why AIM Studio</span>
+              <span className="si-eyebrow">— The Studio</span>
               <h2 className="si-headline">
                 Cinema for the moments<br />
                 we can&apos;t take back.
