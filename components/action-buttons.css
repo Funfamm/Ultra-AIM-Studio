@@ -1,0 +1,57 @@
+/* Shared engagement action buttons — Like, Share
+   Imported by like-button.tsx and share-button.tsx
+   Scoped to components — never affects admin or public layout */
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-brand-muted);
+  background: none;
+  border: 1px solid var(--color-brand-border);
+  height: 52px;
+  padding: 0 1.5rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, opacity 0.18s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.action-btn:hover:not(:disabled) {
+  color: var(--color-brand-light);
+  border-color: var(--color-brand-muted);
+}
+
+.action-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Like — turns accent gold when liked */
+.action-btn--liked {
+  color: var(--color-brand-accent);
+  border-color: var(--color-brand-accent);
+}
+.action-btn--liked:hover:not(:disabled) {
+  opacity: 0.75;
+}
+
+/* Share — no persistent state; stays muted */
+.action-btn--share {}
+
+/* Like count badge */
+.action-btn-count {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* Compact variant for watch page */
+.action-btn--sm {
+  height: 36px;
+  padding: 0 1rem;
+  font-size: 0.8125rem;
+}

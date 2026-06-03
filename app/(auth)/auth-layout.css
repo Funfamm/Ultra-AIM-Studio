@@ -1,0 +1,37 @@
+.auth-layout {
+  background: radial-gradient(
+    ellipse 90% 50% at 50% 15%,
+    rgba(20, 18, 14, 0.6) 0%,
+    #050505 70%
+  );
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+/* Ambient gold glow behind the auth card */
+.auth-layout::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse,
+    rgba(232, 201, 126, 0.06) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+/* Subtle grid texture */
+.auth-layout::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}

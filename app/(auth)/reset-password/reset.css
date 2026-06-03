@@ -1,0 +1,66 @@
+/* Reset-password — imports shared auth styles, then page-specific additions */
+@import "../../(auth)/login/login.css";
+
+/* ── Invalid/expired token message ── */
+.auth-invalid {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.6;
+  padding: 1.5rem 0;
+}
+
+/* ── 6-digit code input — monospace, centered, large ── */
+.code-input {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5rem;
+  font-family: var(--font-body);
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-brand-accent);
+}
+.code-input::placeholder {
+  letter-spacing: 0.5rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.15);
+}
+.code-input:focus {
+  border-color: rgba(232, 201, 126, 0.5);
+  box-shadow: 0 0 0 3px rgba(232, 201, 126, 0.06), 0 0 20px rgba(232, 201, 126, 0.04);
+}
+
+/* ── Resend link ── */
+.auth-resend {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 1rem;
+  margin-bottom: -0.5rem;
+}
+.auth-resend a {
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.auth-resend a:hover { color: #f0dfa0; text-decoration: underline; }
+
+/* ── Inline link-button ── */
+.auth-link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0;
+  transition: color 0.15s;
+}
+.auth-link-btn:hover { color: #f0dfa0; text-decoration: underline; }

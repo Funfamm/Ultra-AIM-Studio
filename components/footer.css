@@ -1,0 +1,106 @@
+.footer {
+  position: relative;
+  padding: 4rem 0 2.5rem;
+  margin-top: 5rem;
+  background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+}
+/* Gold gradient top accent — the signature */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(232,201,126,0.15) 15%,
+    rgba(232,201,126,0.4) 50%,
+    rgba(232,201,126,0.15) 85%,
+    transparent 100%
+  );
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-brand-white);
+}
+.footer-logo span {
+  font-weight: 300;
+  color: var(--color-brand-accent);
+  margin-left: 0.35rem;
+  letter-spacing: 0.1em;
+}
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.5rem;
+  max-width: 300px;
+  line-height: 1.55;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-brand-accent);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.footer-links a:hover { color: var(--color-brand-accent); }
+.footer-links a:hover::after { width: 100%; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-motto {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232,201,126,0.5);
+}
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: rgba(255,255,255,0.22);
+}

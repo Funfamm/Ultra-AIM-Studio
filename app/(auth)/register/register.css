@@ -1,0 +1,8 @@
+/* Register page — imports shared auth styles, then applies register-specific overrides */
+@import "../../(auth)/login/login.css";
+
+/* Register card is slightly wider to accommodate more fields */
+.auth-card {
+  max-width: 480px;
+}
+.auth-header { margin-bottom: 1.5rem; }

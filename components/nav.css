@@ -1,0 +1,234 @@
+/* ── Fixed header ── */
+/*
+  backdrop-filter is intentionally on ::before, NOT on .nav-header itself.
+  Applying backdrop-filter to the element creates a new containing block for
+  position:fixed descendants (Chrome/WebKit spec behaviour), which traps
+  .nav-overlay and .nav-sidebar inside the 68 px header strip instead of
+  covering the full viewport. Moving it to ::before preserves the frosted-glass
+  look while letting the overlay/sidebar escape to the root stacking context.
+*/
+.nav-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 160;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-header::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+/* nav-inner must be positioned so it renders above the ::before pseudo-element */
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; position: relative; }
+
+/* ── Logo ── */
+.nav-logo {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--color-brand-white); text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo-img { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+.nav-logo span { font-weight: 300; color: var(--color-brand-accent); margin-left: 0.5rem; letter-spacing: 0.1em; }
+
+/* ── Desktop nav ── */
+.nav-links-desktop { display: none; align-items: center; gap: 2rem; }
+@media (min-width: 768px) { .nav-links-desktop { display: flex; } }
+
+.nav-link {
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none; transition: color var(--duration-fast);
+}
+.nav-link:hover { color: var(--color-brand-white); }
+.nav-link--active { color: var(--color-brand-accent); }
+.nav-link--admin {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  color: var(--color-brand-accent) !important;
+}
+
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--color-brand-muted);
+  padding: 0; text-decoration: none; transition: color 0.2s; background: none;
+}
+.nav-cta:hover { color: var(--color-brand-white); }
+
+/* ── Bell ── */
+.nav-bell {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  color: var(--color-brand-muted); text-decoration: none; padding: 0.25rem; transition: color 0.2s;
+}
+.nav-bell:hover { color: var(--color-brand-white); }
+.nav-bell-badge {
+  position: absolute; top: -2px; right: -4px;
+  min-width: 16px; height: 16px; padding: 0 3px;
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  font-family: var(--font-body); font-size: 10px; font-weight: 700;
+  line-height: 16px; border-radius: 8px; text-align: center;
+  pointer-events: none; white-space: nowrap;
+}
+
+/* ── Mobile cluster ── */
+.nav-mobile-actions { display: flex; align-items: center; gap: 0.25rem; }
+@media (min-width: 768px) { .nav-mobile-actions { display: none; } }
+
+.nav-burger {
+  background: none; border: none; color: var(--color-brand-white);
+  cursor: pointer; padding: 0.35rem; display: flex; align-items: center;
+  border-radius: 4px; transition: background 0.15s;
+}
+.nav-burger:hover { background: var(--color-brand-surface); }
+
+/* ── Overlay ── */
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.nav-overlay--open { opacity: 1; pointer-events: auto; }
+
+/* ── Sidebar drawer ── */
+.nav-sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 300px; max-width: 88vw;
+  background: var(--color-brand-dark);
+  border-right: 1px solid var(--color-brand-border);
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto; overflow-x: hidden;
+  display: flex; flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-sidebar--open { transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-sidebar { transition: none; }
+  .nav-overlay { transition: none; }
+}
+
+/* Desktop: sidebar is mobile-only */
+@media (min-width: 768px) {
+  .nav-sidebar { display: none; }
+  .nav-overlay { display: none; }
+}
+
+/* ── Sidebar header ── */
+.nav-sb-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--color-brand-border);
+  flex-shrink: 0;
+}
+.nav-sb-profile { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
+.nav-sb-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--color-brand-accent);
+  color: var(--color-brand-black);
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.nav-sb-identity { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.nav-sb-name {
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+  color: var(--color-brand-white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nav-sb-role {
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-brand-accent); opacity: 0.9;
+}
+.nav-sb-online-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 2px rgba(74,222,128,0.25);
+  flex-shrink: 0;
+}
+
+/* Brand block (guest header) */
+.nav-sb-brand { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+.nav-sb-brand-name {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  color: var(--color-brand-white); letter-spacing: 0.04em;
+}
+
+/* Close button */
+.nav-sb-close {
+  background: none; border: none; color: var(--color-brand-muted);
+  cursor: pointer; padding: 0.35rem; border-radius: 4px;
+  transition: color 0.15s, background 0.15s; flex-shrink: 0;
+}
+.nav-sb-close:hover { color: var(--color-brand-white); background: var(--color-brand-surface); }
+
+/* ── Quick nav row ── */
+.nav-sb-quick {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-brand-border);
+}
+.nav-sb-quick-item {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  flex: 1; padding: 0.6rem 0.5rem;
+  font-family: var(--font-body); font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none;
+  border-radius: 6px; transition: background 0.15s, color 0.15s;
+}
+.nav-sb-quick-item:hover { background: var(--color-brand-surface); color: var(--color-brand-white); }
+
+/* ── Divider ── */
+.nav-sb-divider { height: 1px; background: var(--color-brand-border); margin: 0.25rem 0; flex-shrink: 0; }
+
+/* ── Nav links ── */
+.nav-sb-nav { display: flex; flex-direction: column; padding: 0.5rem 0; }
+.nav-sb-link {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.8rem 1.25rem;
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  color: var(--color-brand-light); text-decoration: none;
+  transition: background var(--duration-fast), color var(--duration-fast);
+  position: relative;
+}
+.nav-sb-link:hover { background: var(--color-brand-surface); color: var(--color-brand-white); }
+.nav-sb-link--active {
+  color: var(--color-brand-accent);
+  border-left: 2px solid var(--color-brand-accent);
+  padding-left: calc(1.25rem - 2px);
+}
+.nav-sb-link--admin { color: var(--color-brand-accent); }
+.nav-sb-link--admin:hover { color: var(--color-brand-accent); filter: brightness(1.1); }
+
+/* Notification badge inline */
+.nav-sb-badge {
+  margin-left: auto;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  font-family: var(--font-body); font-size: 0.7rem; font-weight: 700;
+  line-height: 20px; border-radius: 10px; text-align: center; white-space: nowrap;
+}
+
+/* ── Auth section ── */
+.nav-sb-auth { display: flex; flex-direction: column; padding: 0.5rem 0 1.5rem; }
+.nav-sb-signout {
+  display: flex; align-items: center; gap: 0.75rem;
+  width: 100%; padding: 0.8rem 1.25rem;
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  color: var(--color-brand-muted); background: none; border: none;
+  cursor: pointer; text-align: left; transition: background 0.12s, color 0.12s;
+}
+.nav-sb-signout:hover { background: var(--color-brand-surface); color: var(--color-brand-white); }
+.nav-sb-register {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.8rem 1.25rem;
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  color: var(--color-brand-accent); text-decoration: none;
+  transition: background 0.12s;
+}
+.nav-sb-register:hover { background: var(--color-brand-surface); }

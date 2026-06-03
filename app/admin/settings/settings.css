@@ -1,0 +1,327 @@
+/* Admin Settings — settings.css */
+
+.stg-shell {
+  max-width: 780px;
+  padding-bottom: 3rem;
+}
+
+/* ── Page header ── */
+.stg-header {
+  margin-bottom: 2rem;
+}
+
+.stg-page-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-brand-white);
+  margin: 0 0 0.35rem;
+}
+
+.stg-page-desc {
+  font-size: 0.85rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+}
+
+/* ── Section card ── */
+.stg-section {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.stg-section-hd {
+  margin-bottom: 1.25rem;
+}
+
+.stg-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-brand-white);
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stg-section-desc {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Env status badge ── */
+.stg-env-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--color-brand-surface);
+  border-radius: 6px;
+}
+
+.stg-env-label {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  flex: 1;
+}
+
+.stg-env-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.stg-env-badge--ok {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+}
+
+.stg-env-badge--err {
+  background: rgba(192, 57, 43, 0.12);
+  color: var(--color-brand-red);
+}
+
+.stg-env-badge--warn {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+/* ── Section note — small helper text below a section description ── */
+.stg-section-note {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  line-height: 1.55;
+  margin: 0.5rem 0 0;
+}
+.stg-section-note code {
+  font-family: monospace;
+  font-size: 0.8em;
+  background: var(--color-brand-surface);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--color-brand-light);
+}
+
+/* Info-only section — no form, just a redirect hint */
+.stg-section--info {
+  border-style: dashed;
+  opacity: 0.85;
+}
+
+.stg-link-btn {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-surface);
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.stg-link-btn:hover {
+  border-color: var(--color-brand-accent);
+  background: rgba(232, 201, 126, 0.06);
+}
+
+/* ── Field groups ── */
+.stg-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.stg-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .stg-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Text / Select field ── */
+.stg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.stg-field-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-brand-light);
+}
+
+.stg-field-note {
+  font-size: 0.72rem;
+  color: var(--color-brand-muted);
+  margin-top: -0.15rem;
+}
+
+.stg-input,
+.stg-select {
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.stg-input::placeholder {
+  color: var(--color-brand-muted);
+  opacity: 0.7;
+}
+
+.stg-input:focus,
+.stg-select:focus {
+  border-color: var(--color-brand-accent);
+}
+
+.stg-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+/* ── Checkbox rows ── */
+.stg-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.stg-check-row:hover {
+  background: var(--color-brand-surface);
+}
+
+.stg-checkbox {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--color-brand-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.stg-check-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.stg-check-label {
+  font-size: 0.82rem;
+  color: var(--color-brand-light);
+  font-weight: 500;
+}
+
+.stg-check-note {
+  font-size: 0.72rem;
+  color: var(--color-brand-muted);
+}
+
+/* ── Features grid (2-col on desktop) ── */
+.stg-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .stg-features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Actions row ── */
+.stg-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-brand-border);
+}
+
+.stg-save-btn {
+  background: var(--color-brand-accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  letter-spacing: 0.03em;
+}
+
+.stg-save-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.stg-save-btn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.stg-caution {
+  font-size: 0.72rem;
+  color: var(--color-brand-red);
+}
+
+/* ── Feedback messages ── */
+.stg-error {
+  font-size: 0.78rem;
+  color: var(--color-brand-red);
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: 6px;
+}
+
+.stg-success {
+  font-size: 0.78rem;
+  color: #4ade80;
+  margin: 0.5rem 0 0;
+}
+
+/* ── Footer ── */
+.stg-footer {
+  font-size: 0.72rem;
+  color: var(--color-brand-border);
+  margin-top: 1rem;
+  text-align: right;
+}

@@ -1,0 +1,214 @@
+{
+  "runAt": "2026-05-26T17:02:56.983Z",
+  "dryRun": true,
+  "oldDb": {
+    "totalUsers": 16,
+    "suppressions": 6
+  },
+  "newDb": {
+    "existingUsers": 2,
+    "existingAccounts": 1
+  },
+  "users": {
+    "toImport": [
+      {
+        "email": "trudyannmcclue@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": true,
+        "tokenVersion": 2
+      },
+      {
+        "email": "isaiaholasunkanmi6@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": true,
+        "tokenVersion": 0
+      },
+      {
+        "email": "favexcelaaa19@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "latashadharris@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": false,
+        "hasGoogle": true,
+        "tokenVersion": 0
+      },
+      {
+        "email": "josephaderemi247@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "christianahaderemi@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "aderemiezekiel2344@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "eberechiogbudu@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 1
+      },
+      {
+        "email": "taiwomunirat2@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": false,
+        "hasGoogle": true,
+        "tokenVersion": 0
+      },
+      {
+        "email": "barakattitilope25@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "kotzeetanya@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": false,
+        "hasGoogle": true,
+        "tokenVersion": 0
+      },
+      {
+        "email": "omowunmiestheroluwagbemiga@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": false,
+        "hasGoogle": true,
+        "tokenVersion": 0
+      },
+      {
+        "email": "ra.n.g.elke.i.d.n.s.d.k@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      },
+      {
+        "email": "oqem.e.wuw.atu.79@gmail.com",
+        "oldRole": "member",
+        "newRole": "USER",
+        "status": "ACTIVE",
+        "hasPassword": true,
+        "hasGoogle": false,
+        "tokenVersion": 0
+      }
+    ],
+    "toSkip": [
+      {
+        "reason": "EMAIL_EXISTS_IN_NEW_DB",
+        "email": "aimstudio@impactaistudio.com",
+        "role": "superadmin",
+        "existingNewRole": "SUPER_ADMIN"
+      },
+      {
+        "reason": "EMAIL_EXISTS_IN_NEW_DB",
+        "email": "samaderemi01@gmail.com",
+        "role": "member",
+        "existingNewRole": "USER"
+      }
+    ]
+  },
+  "accounts": {
+    "toCreate": [
+      {
+        "provider": "google",
+        "userId": "cmoeyrlye0001jv041sumafss"
+      },
+      {
+        "provider": "google",
+        "userId": "cmof37v4r0001l804shkz3ezf"
+      },
+      {
+        "provider": "google",
+        "userId": "cmohfbhcg0000kz043258wrij"
+      },
+      {
+        "provider": "google",
+        "userId": "cmom13xen000bl7046px7ansy"
+      },
+      {
+        "provider": "google",
+        "userId": "cmovqi2u80001l504858xm70m"
+      },
+      {
+        "provider": "google",
+        "userId": "cmp7zv4dc0007jy04447etpjx"
+      }
+    ]
+  },
+  "suppressions": {
+    "toImport": 0,
+    "toSkip": [
+      {
+        "reason": "REMOVED",
+        "email": "samuel.aderemi@westhab.org"
+      },
+      {
+        "reason": "REMOVED",
+        "email": "cebrookylnmedia@gmail.com"
+      },
+      {
+        "reason": "REMOVED",
+        "email": "samaderemi01@gmail.com"
+      },
+      {
+        "reason": "REMOVED",
+        "email": "eberechiogbudu@gmail.com"
+      },
+      {
+        "reason": "REMOVED",
+        "email": "samadere@jam.co"
+      },
+      {
+        "reason": "ALREADY_IN_NEW_DB",
+        "email": "sampelumisp1@gmail.com"
+      }
+    ]
+  },
+  "warnings": []
+}

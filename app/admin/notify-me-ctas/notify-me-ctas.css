@@ -1,0 +1,111 @@
+/* Admin — Notify Me CTAs list page */
+
+.nmc-page {
+  padding: 2rem 0;
+}
+
+/* ── Header ── */
+.nmc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem; gap: 1rem; flex-wrap: wrap;
+}
+.nmc-head-title {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--color-brand-white);
+}
+.nmc-head-title h1 {
+  font-family: var(--font-display); font-size: 1.5rem;
+  font-weight: 700; letter-spacing: -0.01em; margin: 0;
+}
+
+/* ── Add button ── */
+.nmc-add-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  padding: 0.55rem 1.1rem; border-radius: 2px; text-decoration: none;
+  transition: filter 0.15s;
+}
+.nmc-add-btn:hover { filter: brightness(1.08); }
+
+/* ── Empty state ── */
+.nmc-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1rem; padding: 4rem 2rem; text-align: center;
+  color: var(--color-brand-muted);
+}
+.nmc-empty p {
+  font-family: var(--font-body); font-size: 0.9rem; max-width: 380px;
+}
+
+/* ── Table wrapper ── */
+.nmc-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+}
+
+.nmc-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-body); font-size: 0.8375rem;
+}
+.nmc-table thead th {
+  text-align: left; padding: 0.75rem 1rem;
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--color-brand-muted);
+  border-bottom: 1px solid var(--color-brand-border);
+  background: var(--color-brand-dark);
+  white-space: nowrap;
+}
+.nmc-table tbody tr {
+  border-bottom: 1px solid var(--color-brand-border);
+  transition: background 0.12s;
+}
+.nmc-table tbody tr:last-child { border-bottom: none; }
+.nmc-table tbody tr:hover { background: var(--color-brand-surface); }
+.nmc-table td {
+  padding: 0.875rem 1rem; vertical-align: middle;
+  color: var(--color-brand-light);
+}
+
+/* ── Work cell ── */
+.nmc-work-cell { display: flex; flex-direction: column; gap: 0.15rem; }
+.nmc-work-title {
+  font-weight: 600; color: var(--color-brand-white);
+}
+.nmc-work-type {
+  font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-brand-muted);
+}
+
+/* ── Type chip ── */
+.nmc-type-chip {
+  display: inline-block;
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-white);
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  padding: 0.15rem 0.45rem; border-radius: 2px;
+}
+
+/* ── Status badges ── */
+.nmc-status {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+}
+.nmc-status--active { color: #4ade80; }
+.nmc-status--off    { color: var(--color-brand-muted); }
+
+/* ── Numeric cell ── */
+.nmc-num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ── Edit button ── */
+.nmc-edit-btn {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  color: var(--color-brand-accent); text-decoration: none;
+  transition: opacity 0.15s;
+}
+.nmc-edit-btn:hover { opacity: 0.75; }

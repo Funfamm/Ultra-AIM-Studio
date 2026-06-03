@@ -1,0 +1,4 @@
+/* Forgot-password — imports shared auth styles, then page-specific additions */
+@import "../../(auth)/login/login.css";
+
+/* No page-specific overrides needed — shared styles cover everything */

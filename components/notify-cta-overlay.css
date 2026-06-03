@@ -1,0 +1,131 @@
+/* Notify Me CTA Overlay — appears at the bottom of the video player */
+
+.ncta-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2.5rem 1.5rem 1.25rem;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.97) 0%,
+    rgba(10, 10, 10, 0.88) 65%,
+    transparent 100%
+  );
+  animation: ncta-rise 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 10;
+}
+
+@keyframes ncta-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Close button ── */
+.ncta-close {
+  position: absolute;
+  top: 0.6rem; right: 0.7rem;
+  width: 1.65rem; height: 1.65rem;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: var(--color-brand-light);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ncta-close:hover { background: rgba(255, 255, 255, 0.14); }
+
+/* ── Type badge ── */
+.ncta-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+  margin-bottom: 0.3rem;
+}
+
+/* ── Headline & body ── */
+.ncta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 3vw, 1.3rem);
+  font-weight: 600;
+  color: var(--color-brand-white);
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+}
+
+.ncta-body {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+/* ── Form row ── */
+.ncta-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.ncta-input {
+  flex: 1 1 130px;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 3px;
+  color: var(--color-brand-white);
+  padding: 0.45rem 0.7rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.ncta-input::placeholder { color: var(--color-brand-muted); }
+.ncta-input:focus         { border-color: var(--color-brand-accent); }
+.ncta-input:disabled      { opacity: 0.45; }
+
+.ncta-error {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: #f87171;
+  margin: 0.1rem 0 0;
+}
+
+.ncta-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--color-brand-accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 3px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.ncta-btn:hover:not(:disabled) { opacity: 0.85; }
+.ncta-btn:disabled              { opacity: 0.45; cursor: default; }
+
+/* ── Done state ── */
+.ncta-done {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+}
+.ncta-done-msg {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  font-weight: 600;
+  color: var(--color-brand-accent);
+  margin: 0;
+  animation: ncta-rise 0.3s ease both;
+}

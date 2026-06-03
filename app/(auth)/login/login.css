@@ -1,0 +1,343 @@
+/* ══════════════════════════════════════════════════════════════
+   Auth Pages — Premium Cinematic Styling
+   Shared by: login, register, forgot-password, reset-password
+   ══════════════════════════════════════════════════════════════ */
+
+.auth-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card — frosted glass with gold ambient glow ── */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(14, 14, 14, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 20px 60px -15px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(232, 201, 126, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  position: relative;
+}
+@media (max-width: 480px) {
+  .auth-card { padding: 2rem 1.25rem; }
+}
+/* Top gold accent line */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(232, 201, 126, 0.3) 30%,
+    rgba(232, 201, 126, 0.5) 50%,
+    rgba(232, 201, 126, 0.3) 70%,
+    transparent 100%
+  );
+  border-radius: 1px;
+}
+
+/* ── Header ── */
+.auth-header { text-align: center; margin-bottom: 2rem; }
+.auth-logo {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--color-brand-white);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+.auth-logo span {
+  color: var(--color-brand-accent);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  margin-left: 0.3rem;
+}
+.auth-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-brand-white);
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.02em;
+}
+.auth-sub {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Success / Error alerts ── */
+.auth-success {
+  background: rgba(39, 174, 96, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  color: #4ade80;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+.auth-error {
+  background: rgba(192, 57, 43, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #f87171;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Form ── */
+.auth-form { display: flex; flex-direction: column; gap: 1.1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.form-optional {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Input — frosted glass with gold focus */
+.form-input {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-brand-white);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.3s, background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-input::placeholder { color: rgba(255, 255, 255, 0.2); }
+.form-input:focus {
+  border-color: rgba(232, 201, 126, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(232, 201, 126, 0.06), 0 0 20px rgba(232, 201, 126, 0.04);
+}
+
+/* ── Submit button — gold with permanent glow ── */
+.auth-btn {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-black);
+  background: var(--color-brand-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 24px rgba(232, 201, 126, 0.2);
+}
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(232, 201, 126, 0.35), 0 0 60px rgba(232, 201, 126, 0.08);
+}
+.auth-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Switch link (e.g. "Already have an account?") ── */
+.auth-switch {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 1.5rem;
+}
+.auth-switch a {
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.auth-switch a:hover { color: #f0dfa0; text-decoration: underline; }
+
+/* ── OAuth divider — gold gradient ── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(232, 201, 126, 0.15),
+    transparent
+  );
+}
+
+/* ── Google button — frosted glass ── */
+.auth-btn-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.auth-btn-google:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-brand-white);
+}
+
+/* ── Password field with show/hide toggle ── */
+.pw-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pw-field-input {
+  padding-right: 2.75rem;
+}
+.pw-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.25);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  line-height: 1;
+}
+.pw-toggle:hover { color: rgba(255, 255, 255, 0.6); }
+
+/* ── Forgot password link ── */
+.auth-forgot {
+  text-align: right;
+  margin-top: -0.5rem;
+}
+.auth-forgot a {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.auth-forgot a:hover { color: var(--color-brand-accent); }
+
+/* ── Auth perks (register page) ── */
+.auth-perks {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+.auth-perk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(232, 201, 126, 0.04);
+  border: 1px solid rgba(232, 201, 126, 0.12);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem 0.75rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.auth-perk:hover {
+  border-color: rgba(232, 201, 126, 0.3);
+  background: rgba(232, 201, 126, 0.08);
+}
+.auth-perk-icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-brand-accent);
+  flex-shrink: 0;
+}
+
+/* ── Password match error ── */
+.pw-match-error {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #f87171;
+  margin: 0.25rem 0 0;
+}
+
+/* ── Fine print ── */
+.auth-fine-print {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.22);
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}
+.auth-fine-print a { color: rgba(255, 255, 255, 0.3); text-decoration: underline; }
+.auth-fine-print a:hover { color: rgba(255, 255, 255, 0.5); }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .auth-btn { transition: none; }
+  .auth-btn:hover { transform: none; }
+}

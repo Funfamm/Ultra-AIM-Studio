@@ -1,0 +1,78 @@
+.admin-form-page { max-width: 760px; }
+.admin-back {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none;
+  margin-bottom: 1.5rem; transition: color 0.2s;
+}
+.admin-back:hover { color: var(--color-brand-white); }
+.admin-page-title {
+  font-family: var(--font-display); font-size: 1.6rem;
+  font-weight: 700; color: var(--color-brand-white); margin: 0 0 2rem;
+}
+.form-error {
+  background: rgba(192,57,43,0.12); border: 1px solid var(--color-brand-red);
+  color: #e74c3c; font-family: var(--font-body); font-size: 0.85rem;
+  padding: 0.75rem 1rem; border-radius: 4px; margin-bottom: 1.25rem;
+}
+.work-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) {
+  .form-row { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+}
+.form-row--checks { grid-template-columns: 1fr; gap: 0.75rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label {
+  font-family: var(--font-body); font-size: 0.8rem;
+  font-weight: 500; color: var(--color-brand-light);
+}
+.form-input, .form-textarea {
+  font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--color-brand-white); background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border); border-radius: 4px;
+  padding: 0.65rem 0.9rem; outline: none; transition: border-color 0.2s;
+  width: 100%; box-sizing: border-box; resize: vertical;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--color-brand-muted); }
+.form-input:focus, .form-textarea:focus { border-color: var(--color-brand-accent); }
+select.form-input { cursor: pointer; }
+.form-divider { border-top: 1px solid var(--color-brand-border); margin: 0.25rem 0; }
+.form-section-title {
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-brand-muted); margin: 0.75rem 0 0.25rem;
+}
+.form-check {
+  display: flex; align-items: center; gap: 0.6rem; cursor: pointer;
+  font-family: var(--font-body); font-size: 0.875rem; color: var(--color-brand-light);
+}
+.form-check input[type="checkbox"] {
+  width: 16px; height: 16px; accent-color: var(--color-brand-accent); cursor: pointer;
+}
+.form-actions { display: flex; gap: 0.75rem; align-items: center; padding-top: 0.5rem; }
+.form-cancel {
+  font-family: var(--font-body); font-size: 0.875rem; color: var(--color-brand-muted);
+  text-decoration: none; padding: 0.65rem 1.25rem;
+  border: 1px solid var(--color-brand-border); border-radius: 4px; transition: color 0.2s;
+}
+.form-cancel:hover { color: var(--color-brand-white); }
+.form-submit {
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  border: none; border-radius: 4px; padding: 0.65rem 1.75rem;
+  cursor: pointer; transition: filter 0.2s;
+}
+.form-submit:hover { filter: brightness(1.05); }
+.form-hint {
+  display: block; margin-top: 0.35rem;
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: var(--color-brand-muted); line-height: 1.4;
+}
+.form-check-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+@media (min-width: 480px) {
+  .form-check-grid { grid-template-columns: repeat(3, 1fr); }
+}

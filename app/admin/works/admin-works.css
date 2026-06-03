@@ -1,0 +1,40 @@
+.td-title { font-weight: 500; color: var(--color-brand-white); max-width: 220px; }
+.td-sub { display: block; font-size: 0.75rem; color: var(--color-brand-muted); font-weight: 400; margin-top: 0.15rem; }
+.type-label {
+  font-family: var(--font-body); font-size: 0.6875rem; font-weight: 500;
+  color: var(--color-brand-muted); white-space: nowrap;
+}
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+.dot--green { background: #4ade80; }
+.dot--red   { background: var(--color-brand-border); }
+.check { color: #4ade80; font-size: 0.9rem; }
+.dash  { color: var(--color-brand-border); }
+
+/* ── Engagement stat columns ─────────────────────────── */
+.th-stat {
+  width: 48px;
+  text-align: center;
+  color: var(--color-brand-muted);
+  padding-inline: 6px;
+}
+.th-stat svg { display: inline-block; vertical-align: middle; }
+.td-stat {
+  text-align: center;
+  padding-inline: 6px;
+  white-space: nowrap;
+}
+.stat-val {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  letter-spacing: 0;
+}
+/* asterisk on series rows that aggregate episodes */
+.stat-agg {
+  font-size: 0.65rem;
+  color: var(--color-brand-muted);
+  margin-left: 1px;
+  vertical-align: super;
+  cursor: default;
+}

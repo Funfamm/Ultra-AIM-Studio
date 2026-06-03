@@ -1,0 +1,317 @@
+.watch-page { padding: 2rem 0 6rem; }
+.watch-back {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none;
+  margin-bottom: 1rem; transition: color 0.2s;
+}
+.watch-back:hover { color: var(--color-brand-white); }
+.watch-label {
+  font-family: var(--font-body); font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-brand-accent); margin: 0 0 1rem;
+}
+
+/* ── Two-column layout ── */
+.watch-layout { display: flex; flex-direction: column; gap: 2rem; }
+@media (min-width: 1024px) {
+  .watch-layout { flex-direction: row; align-items: flex-start; gap: 2rem; }
+  .watch-main { flex: 1; min-width: 0; max-width: 900px; }
+  .watch-ep-sidebar { width: 272px; flex-shrink: 0; position: sticky; top: 88px; max-height: calc(100vh - 100px); overflow: hidden; display: flex; flex-direction: column; }
+}
+
+/* ── Player ── */
+.watch-player-wrap {
+  position: relative; width: 100%; aspect-ratio: 16/9;
+  background: #000; border-radius: 4px; overflow: hidden;
+  border: 1px solid var(--color-brand-border);
+}
+
+/* Mobile: bleed out of container-app so player is full-viewport-width */
+@media (max-width: 639px) {
+  .watch-player-wrap {
+    width: calc(100% + 3rem);   /* container-app mobile padding is 1.5rem each side */
+    margin-inline: -1.5rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+/* watch-player-inner: wrapper rendered by VideoPlayer / EpisodePlayer
+   Must fill the player-wrap exactly so the CTA overlay positions correctly */
+.watch-player-inner {
+  position: absolute; inset: 0;
+}
+
+.watch-iframe, .watch-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border: none; display: block;
+}
+.watch-no-video {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; color: var(--color-brand-muted); font-family: var(--font-body);
+}
+
+/* ── Info ── */
+.watch-info { padding: 1.5rem 0; max-width: 720px; }
+.watch-title {
+  font-family: var(--font-display); font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700; letter-spacing: -0.01em;
+  color: var(--color-brand-white); margin: 0 0 0.75rem;
+}
+.watch-desc {
+  font-family: var(--font-body); font-size: 0.92rem;
+  color: var(--color-brand-muted); line-height: 1.7; margin: 0 0 1.25rem;
+}
+.watch-next-ep {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+  color: var(--color-brand-accent); text-decoration: none;
+  margin-bottom: 1.25rem; transition: opacity 0.15s;
+}
+.watch-next-ep:hover { opacity: 0.72; }
+
+/* ── Upsell ── */
+.watch-upsell {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-body); font-size: 0.85rem; color: var(--color-brand-muted);
+  background: var(--color-brand-surface); border: 1px solid var(--color-brand-border);
+  padding: 0.75rem 1.25rem; border-radius: 4px;
+}
+.watch-upsell a { color: var(--color-brand-accent); text-decoration: none; }
+.watch-upsell a:hover { text-decoration: underline; }
+.watch-upsell-btn { color: var(--color-brand-accent) !important; font-weight: 600; }
+
+/* ── Episode sidebar ── */
+.watch-ep-sidebar {
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px; overflow: hidden;
+  background: var(--color-brand-dark);
+}
+.watch-ep-sidebar-label {
+  font-family: var(--font-body); font-size: 0.6875rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-brand-muted);
+  padding: 0.875rem 1rem; margin: 0;
+  border-bottom: 1px solid var(--color-brand-border);
+  flex-shrink: 0;
+}
+.watch-ep-list {
+  list-style: none; margin: 0; padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-border) transparent;
+}
+.watch-ep-item { border-bottom: 1px solid var(--color-brand-border); }
+.watch-ep-item:last-child { border-bottom: none; }
+.watch-ep-item--current { background: rgba(255,255,255,0.04); }
+.watch-ep-link {
+  display: flex; flex-direction: column; gap: 0.2rem;
+  padding: 0.875rem 1rem; text-decoration: none;
+  transition: background 0.15s;
+}
+.watch-ep-link:not(.watch-ep-link--static):hover { background: rgba(255,255,255,0.05); }
+.watch-ep-meta { display: flex; align-items: center; gap: 0.6rem; }
+.watch-ep-num {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+.watch-ep-dur {
+  font-family: var(--font-body); font-size: 0.65rem;
+  color: var(--color-brand-muted);
+}
+.watch-ep-title {
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  color: var(--color-brand-white); line-height: 1.35;
+}
+.watch-ep-now {
+  font-family: var(--font-body); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-brand-accent); margin-top: 0.1rem;
+}
+
+/* Engagement row on watch page */
+.watch-engagement { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+
+/* ── Content Warning Overlay ─────────────────────────────────── */
+.cw-backdrop {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.88); backdrop-filter: blur(4px);
+}
+.cw-card {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px; padding: 2rem 2.5rem;
+  max-width: 420px; width: 90%; text-align: center;
+}
+.cw-rating {
+  display: inline-block; font-family: var(--font-body); font-size: 1.1rem;
+  font-weight: 700; letter-spacing: 0.06em;
+  border: 2px solid var(--color-brand-light); border-radius: 4px;
+  padding: 0.15rem 0.6rem; color: var(--color-brand-light);
+  margin-bottom: 1rem;
+}
+.cw-title {
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+  color: var(--color-brand-white); margin: 0 0 0.75rem;
+}
+.cw-descriptors {
+  font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--color-brand-light); margin: 0 0 0.5rem; line-height: 1.5;
+}
+.cw-sub {
+  font-family: var(--font-body); font-size: 0.8rem;
+  color: var(--color-brand-muted); margin: 0 0 1.5rem;
+}
+.cw-btn {
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 700;
+  letter-spacing: 0.04em; border: none; border-radius: 3px;
+  padding: 0.65rem 2rem; cursor: pointer; transition: opacity 0.15s;
+}
+.cw-btn:hover { opacity: 0.88; }
+
+/* ── Interaction-activated player overlay ────────────────────── */
+/* Hidden by default; fades in on hover/tap; auto-hides after 3s  */
+.player-overlay {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  pointer-events: none; /* always pass clicks through to the video */
+  opacity: 0; transition: opacity 0.25s ease;
+}
+.player-overlay--on { opacity: 1; }
+/* Only the interactive elements receive pointer events, never the overlay backdrop */
+.player-pill,
+.player-speed-menu,
+.player-speed-opt { pointer-events: auto; }
+
+/* Bottom row: speed (left) + skip buttons (right) */
+.player-overlay-bottom {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 0.875rem 5rem; /* sit above native controls */
+  gap: 0.5rem;
+}
+
+/* Pill button — used for Skip Intro, Skip Credits, Speed */
+.player-pill {
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff; font-family: var(--font-body);
+  font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.01em;
+  padding: 0.4rem 1rem; border-radius: 100px;
+  cursor: pointer; backdrop-filter: blur(10px);
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.player-pill:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.55);
+}
+.player-pill--speed {
+  font-size: 0.75rem; padding: 0.35rem 0.8rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.player-skip-group { display: flex; gap: 0.5rem; }
+
+/* Speed popover */
+.player-speed { position: relative; }
+.player-speed-menu {
+  position: absolute; bottom: calc(100% + 8px); left: 0;
+  background: rgba(10,10,10,0.92); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; min-width: 110px;
+  backdrop-filter: blur(16px);
+  /* Constrain within the player (overflow:hidden parent clips menus that go too high) */
+  max-height: 11rem; overflow-y: auto;
+}
+.player-speed-opt {
+  display: block; width: 100%; padding: 0.5rem 1rem;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 400;
+  color: rgba(255,255,255,0.8); background: none; border: none;
+  cursor: pointer; text-align: left; transition: background 0.1s, color 0.1s;
+}
+.player-speed-opt:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.player-speed-opt--active { color: var(--color-brand-accent); font-weight: 600; }
+
+/* ── Up Next — visible after episode ends ────────────────────── */
+.up-next-overlay {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  padding: 0 1.25rem 5.5rem;
+  pointer-events: none;
+}
+.up-next-card {
+  background: rgba(10,10,10,0.88);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  width: 240px; pointer-events: auto;
+  backdrop-filter: blur(16px);
+}
+.up-next-eyebrow {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-brand-accent); margin: 0 0 0.35rem;
+}
+.up-next-title {
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+  color: #fff; margin: 0 0 0.75rem; line-height: 1.35;
+}
+.up-next-bar-wrap {
+  height: 2px; background: rgba(255,255,255,0.15);
+  border-radius: 1px; margin-bottom: 0.9rem; overflow: hidden;
+}
+.up-next-bar-fill {
+  height: 100%; background: var(--color-brand-accent);
+  border-radius: 1px; transition: width 1s linear;
+}
+.up-next-actions { display: flex; gap: 0.5rem; }
+.up-next-play {
+  flex: 1; background: var(--color-brand-accent); color: #000;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
+  border: none; border-radius: 4px; padding: 0.45rem 0;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.up-next-play:hover { opacity: 0.88; }
+.up-next-cancel {
+  background: transparent; border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7); font-family: var(--font-body);
+  font-size: 0.8rem; border-radius: 4px; padding: 0.45rem 0.75rem;
+  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+}
+.up-next-cancel:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* ── Episode sidebar enhancements ───────────────────────────── */
+.watch-ep-thumb {
+  width: 80px; height: 52px; border-radius: 2px; overflow: hidden;
+  background: var(--color-brand-surface); flex-shrink: 0; position: relative;
+}
+.watch-ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.watch-ep-thumb-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.2rem; color: var(--color-brand-border);
+}
+.watch-ep-progress-bar {
+  height: 2px; background: var(--color-brand-surface);
+  border-radius: 1px; margin-top: 0.25rem; overflow: hidden;
+}
+.watch-ep-progress-fill {
+  height: 100%; background: var(--color-brand-accent); border-radius: 1px;
+  transition: width 0.2s;
+}
+.watch-ep-watched {
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; color: #4ade80;
+  margin-top: 0.15rem;
+}
+
+/* Season group header */
+.watch-season-head {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-brand-muted);
+  padding: 0.5rem 0 0.25rem; border-top: 1px solid var(--color-brand-border);
+  margin-top: 0.25rem;
+}
+.watch-season-head:first-child { border-top: none; margin-top: 0; }

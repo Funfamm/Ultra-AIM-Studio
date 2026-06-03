@@ -1,0 +1,184 @@
+.settingspage { padding: 2rem 0 6rem; min-height: 80dvh; }
+
+.settingspage-back {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-body); font-size: 0.8rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none;
+  margin-bottom: 1.75rem; transition: color 0.2s;
+}
+.settingspage-back:hover { color: var(--color-brand-white); }
+
+.settingspage-title {
+  font-family: var(--font-display); font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--color-brand-white); margin: 0 0 1.5rem;
+}
+
+/* ── Feedback banner ── */
+.settings-feedback {
+  font-family: var(--font-body); font-size: 0.85rem;
+  padding: 0.75rem 1rem; border-radius: 4px; margin-bottom: 1.25rem;
+}
+.settings-feedback--error {
+  background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.4);
+  color: #e07060;
+}
+
+/* ── Accordion ── */
+.settings-accordion {
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  background: var(--color-brand-dark);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.settings-accordion[open] {
+  border-color: rgba(255,255,255,0.18);
+}
+
+.settings-accordion-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+  color: var(--color-brand-white);
+  user-select: none;
+  transition: background 0.15s;
+}
+.settings-accordion-summary::-webkit-details-marker { display: none; }
+.settings-accordion-summary::marker { display: none; }
+.settings-accordion-summary:hover { background: rgba(255,255,255,0.03); }
+.settings-accordion-summary > span:first-child { flex: 1; }
+
+.settings-accordion-chevron {
+  flex-shrink: 0;
+  color: var(--color-brand-muted);
+  transition: transform 0.22s ease;
+}
+.settings-accordion[open] .settings-accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.settings-accordion-body {
+  border-top: 1px solid var(--color-brand-border);
+}
+
+/* ── Saved chip (appears in summary after save) ── */
+.settings-saved-chip {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: rgba(232,201,126,0.18); color: var(--color-brand-accent);
+  border: 1px solid rgba(232,201,126,0.3);
+  border-radius: 10px; padding: 0.15rem 0.55rem;
+  flex-shrink: 0;
+}
+
+/* ── Profile form fields ── */
+.settings-form { padding: 0; }
+.settings-field-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--color-brand-border);
+}
+.settings-field-label {
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+  color: var(--color-brand-muted); flex-shrink: 0; min-width: 100px;
+}
+.settings-text-input {
+  flex: 1; max-width: 340px;
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-brand-white);
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 3px; padding: 0.5rem 0.75rem;
+  outline: none; box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.settings-text-input:focus { border-color: var(--color-brand-accent); }
+.settings-field-readonly {
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-brand-muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  text-align: right;
+}
+
+/* ── Form footer (save button row) ── */
+.settings-form-footer {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1rem 1.25rem;
+}
+
+/* ── Toggle rows (preferences) ── */
+.settings-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--color-brand-border);
+  cursor: pointer; transition: background 0.15s;
+}
+.settings-toggle-row--plain { cursor: default; }
+.settings-toggle-row--last { border-bottom: none; }
+.settings-toggle-row:not(.settings-toggle-row--plain):hover { background: rgba(255,255,255,0.03); }
+.settings-toggle-label {
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  color: var(--color-brand-white); margin: 0 0 0.2rem;
+}
+.settings-toggle-desc {
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: var(--color-brand-muted); margin: 0; line-height: 1.4;
+}
+
+/* ── Custom toggle checkbox ── */
+.settings-checkbox {
+  position: relative; appearance: none; -webkit-appearance: none;
+  width: 40px; height: 22px; flex-shrink: 0;
+  background: var(--color-brand-border); border-radius: 11px;
+  cursor: pointer; transition: background 0.2s; outline-offset: 3px;
+}
+.settings-checkbox::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--color-brand-muted);
+  transition: transform 0.2s, background 0.2s;
+}
+.settings-checkbox:checked { background: rgba(232,201,126,0.3); }
+.settings-checkbox:checked::after { transform: translateX(18px); background: var(--color-brand-accent); }
+.settings-checkbox:focus-visible { outline: 2px solid var(--color-brand-accent); }
+
+/* ── Divider inside card ── */
+.settings-divider { height: 1px; background: var(--color-brand-border); }
+
+/* ── Save button ── */
+.settings-save-btn {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  border: none; border-radius: 2px;
+  height: 38px; padding: 0 1.25rem;
+  cursor: pointer; transition: filter 0.15s;
+  touch-action: manipulation; flex-shrink: 0;
+}
+.settings-save-btn:hover { filter: brightness(1.07); }
+.settings-save-btn:active { filter: brightness(0.95); }
+
+/* ── Text links inside forms ── */
+.settings-text-link {
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+  color: var(--color-brand-muted); text-decoration: none;
+  transition: color 0.15s;
+}
+.settings-text-link:hover { color: var(--color-brand-accent); }
+
+/* ── Logout ── */
+.settings-logout-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+  color: var(--color-brand-muted); background: none; border: none;
+  padding: 0; cursor: pointer; transition: color 0.2s;
+  flex-shrink: 0;
+}
+.settings-logout-btn:hover { color: var(--color-brand-white); }

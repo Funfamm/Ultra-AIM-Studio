@@ -1,0 +1,147 @@
+{
+  "runAt": "2026-05-26T17:08:06.420Z",
+  "dryRun": false,
+  "imported": [
+    {
+      "id": "cmoeyrlye0001jv041sumafss",
+      "email": "trudyannmcclue@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": true
+    },
+    {
+      "id": "cmof37v4r0001l804shkz3ezf",
+      "email": "isaiaholasunkanmi6@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": true
+    },
+    {
+      "id": "cmogkexqu0005jm04k5pb9y7f",
+      "email": "favexcelaaa19@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmohfbhcg0000kz043258wrij",
+      "email": "latashadharris@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": false,
+      "googleAccount": true
+    },
+    {
+      "id": "cmohg512l0000ih04vufgsos6",
+      "email": "josephaderemi247@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmohg7ljr0010lb04upi4ge97",
+      "email": "christianahaderemi@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmohgiuoq0002jj04nd9dd4y8",
+      "email": "aderemiezekiel2344@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmohvl7d70004kz04al570t9i",
+      "email": "eberechiogbudu@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmom13xen000bl7046px7ansy",
+      "email": "taiwomunirat2@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": false,
+      "googleAccount": true
+    },
+    {
+      "id": "cmori88jj000rji04wvqwhxkm",
+      "email": "barakattitilope25@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmovqi2u80001l504858xm70m",
+      "email": "kotzeetanya@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": false,
+      "googleAccount": true
+    },
+    {
+      "id": "cmp7zv4dc0007jy04447etpjx",
+      "email": "omowunmiestheroluwagbemiga@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": false,
+      "googleAccount": true
+    },
+    {
+      "id": "cmpg047q00005ky040u3difhs",
+      "email": "ra.n.g.elke.i.d.n.s.d.k@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    },
+    {
+      "id": "cmpm22qzf0004l404aw5wnx0p",
+      "email": "oqem.e.wuw.atu.79@gmail.com",
+      "oldRole": "member",
+      "newRole": "USER",
+      "status": "ACTIVE",
+      "hasPassword": true,
+      "googleAccount": false
+    }
+  ],
+  "skipped": [
+    {
+      "reason": "EMAIL_EXISTS",
+      "email": "aimstudio@impactaistudio.com"
+    },
+    {
+      "reason": "EMAIL_EXISTS",
+      "email": "samaderemi01@gmail.com"
+    }
+  ],
+  "errors": [],
+  "finalCounts": {
+    "users": 16,
+    "accounts": 7
+  }
+}

@@ -1,0 +1,499 @@
+/* Admin Security page — security-page.css */
+
+/* ── Section layout ── */
+.sec-section {
+  margin-bottom: 2.5rem;
+}
+
+.sec-section-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.sec-section-title {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-brand-white);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.sec-count {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+}
+
+/* ── Tabs ── */
+.sec-tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.sec-tab {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid var(--color-brand-border);
+  background: transparent;
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sec-tab:hover {
+  color: var(--color-brand-light);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sec-tab--active {
+  background: var(--color-brand-surface);
+  color: var(--color-brand-white);
+  border-color: var(--color-brand-border);
+}
+
+/* ── Severity badge ── */
+.sec-sev {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sec-sev--info     { background: rgba(107, 114, 128, 0.12); color: var(--color-brand-muted); }
+.sec-sev--low      { background: rgba(74, 222, 128, 0.08);  color: #4ade80; }
+.sec-sev--medium   { background: rgba(251, 191, 36, 0.1);   color: #fbbf24; }
+.sec-sev--high     { background: rgba(248, 113, 113, 0.12); color: #f87171; }
+.sec-sev--critical { background: rgba(239, 68, 68, 0.18);   color: #ef4444; }
+
+/* ── Alert cards ── */
+.sec-alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sec-alert-card {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-left-width: 3px;
+  border-left-color: var(--color-brand-border);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+}
+
+.sec-alert-card--low      { border-left-color: #4ade80; }
+.sec-alert-card--medium   { border-left-color: #fbbf24; }
+.sec-alert-card--high     { border-left-color: #f87171; }
+.sec-alert-card--critical { border-left-color: #ef4444; }
+
+.sec-alert-card--done {
+  opacity: 0.48;
+}
+
+.sec-alert-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.sec-alert-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand-white);
+  flex: 1;
+  min-width: 0;
+}
+
+.sec-alert-ts {
+  font-size: 0.72rem;
+  color: var(--color-brand-muted);
+  white-space: nowrap;
+}
+
+.sec-alert-status-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(107, 114, 128, 0.12);
+  color: var(--color-brand-muted);
+  padding: 0.18rem 0.5rem;
+  border-radius: 2px;
+}
+
+.sec-alert-msg {
+  font-size: 0.8rem;
+  color: var(--color-brand-muted);
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+}
+
+/* ── Alert action buttons ── */
+.sec-alert-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sec-alert-btn {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid var(--color-brand-border);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.sec-alert-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sec-alert-btn--resolve {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.25);
+}
+
+.sec-alert-btn--resolve:hover:not(:disabled) {
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.5);
+}
+
+.sec-alert-btn--dismiss {
+  color: var(--color-brand-muted);
+}
+
+.sec-alert-btn--dismiss:hover:not(:disabled) {
+  color: var(--color-brand-light);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Empty state ── */
+.sec-empty {
+  font-size: 0.82rem;
+  color: var(--color-brand-muted);
+  padding: 1.25rem 0;
+}
+
+/* ── Event log table cells ── */
+.sec-ev-time {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+  white-space: nowrap;
+}
+
+.sec-ev-type {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-brand-light);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sec-ev-email {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sec-ev-meta {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+}
+
+/* ══════════════════════════════════════════════
+   ADMIN MANAGEMENT
+   ══════════════════════════════════════════════ */
+
+/* ── Section hint ── */
+.sec-section-hint {
+  font-size: 0.8rem;
+  color: var(--color-brand-muted);
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+/* ── Admin Roster grid ── */
+.sec-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sec-roster-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+}
+
+.sec-roster-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sec-roster-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sec-roster-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand-white);
+  margin: 0;
+}
+
+.sec-roster-you {
+  font-weight: 400;
+  color: var(--color-brand-muted);
+  font-size: 0.78rem;
+}
+
+.sec-roster-email {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sec-roster-pill {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 2px;
+  width: fit-content;
+  margin-top: 0.1rem;
+}
+
+.sec-roster-pill--sa {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+}
+
+.sec-roster-pill--pa {
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+}
+
+/* ── Demote button ── */
+.sec-demote-btn {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.28rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  background: transparent;
+  color: #f87171;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sec-demote-btn:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.08);
+  border-color: rgba(248, 113, 113, 0.5);
+}
+
+.sec-demote-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Shared form layout ── */
+.sec-mgmt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 520px;
+}
+
+.sec-mgmt-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sec-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sec-field-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--color-brand-muted);
+  letter-spacing: 0.03em;
+}
+
+.sec-field-input {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-brand-light);
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  padding: 0.55rem 0.75rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sec-field-input:focus {
+  border-color: var(--color-brand-accent);
+}
+
+.sec-field-input:disabled {
+  opacity: 0.5;
+}
+
+/* ── Password toggle (show/hide) ── */
+.pw-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.pw-field-input {
+  padding-right: 2.75rem;
+}
+.pw-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-brand-muted);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+  line-height: 1;
+}
+.pw-toggle:hover { color: var(--color-brand-light); }
+
+/* ── Password strength indicator ── */
+.sec-pw-str {
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+.sec-pw-str--weak   { color: #f87171; }
+.sec-pw-str--ok     { color: var(--color-brand-muted); }
+.sec-pw-str--good   { color: #fbbf24; }
+.sec-pw-str--strong { color: #4ade80; }
+
+/* ── Form feedback ── */
+.sec-form-error {
+  font-size: 0.78rem;
+  color: #f87171;
+  margin: 0;
+  background: rgba(248, 113, 113, 0.06);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 4px;
+  padding: 0.45rem 0.7rem;
+}
+
+.sec-form-ok {
+  font-size: 0.78rem;
+  color: #4ade80;
+  margin: 0;
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 4px;
+  padding: 0.45rem 0.7rem;
+}
+
+.sec-form-hint {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Submit button ── */
+.sec-mgmt-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-surface);
+  color: var(--color-brand-white);
+  cursor: pointer;
+  width: fit-content;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.sec-mgmt-btn:hover:not(:disabled) {
+  border-color: var(--color-brand-accent);
+  color: var(--color-brand-accent);
+}
+
+.sec-mgmt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Side-by-side self-service panels ── */
+.sec-section--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.sec-self-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .sec-section--split {
+    grid-template-columns: 1fr;
+  }
+  .sec-roster-card {
+    flex-wrap: wrap;
+  }
+}

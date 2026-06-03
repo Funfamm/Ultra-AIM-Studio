@@ -1,0 +1,478 @@
+/* ══════════════════════════════════════════════════════════════
+   Dashboard — Premium Cinematic Design
+   ══════════════════════════════════════════════════════════════ */
+
+.dashboard-page { padding: 2.5rem 0 6rem; min-height: 80dvh; }
+
+/* ── Header ── */
+.dashboard-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+}
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-white);
+  margin: 0 0 0.3rem;
+}
+.dashboard-sub {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0;
+}
+.dashboard-header-actions {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+
+/* Icon buttons — frosted glass */
+.dashboard-notif-btn,
+.dashboard-settings-btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.dashboard-notif-btn:hover,
+.dashboard-settings-btn:hover {
+  color: var(--color-brand-white);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.12);
+}
+.dashboard-notif-badge {
+  position: absolute; top: -5px; right: -5px;
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+  border-radius: 10px; min-width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 3px; line-height: 1;
+  box-shadow: 0 0 8px rgba(232,201,126,0.3);
+}
+
+/* Logout button */
+.logout-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1rem; cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.logout-btn:hover {
+  color: var(--color-brand-white);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* ── Quick nav pills — frosted glass with gold hover ── */
+.dashboard-quicknav {
+  display: flex; gap: 0.5rem; overflow-x: auto;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  margin-bottom: 2.5rem; padding-bottom: 0.25rem;
+}
+.dashboard-quicknav::-webkit-scrollbar { display: none; }
+.quicknav-chip {
+  flex-shrink: 0;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem;
+  text-decoration: none; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.quicknav-chip:hover {
+  background: rgba(232,201,126,0.08);
+  border-color: rgba(232,201,126,0.25);
+  color: var(--color-brand-accent);
+}
+.quicknav-badge {
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  font-size: 0.6rem; font-weight: 700; border-radius: 10px;
+  min-width: 15px; height: 15px; display: inline-flex;
+  align-items: center; justify-content: center; padding: 0 3px;
+}
+
+/* ── Sections ── */
+.dashboard-section {
+  margin-bottom: 3rem;
+  position: relative;
+}
+/* Gold divider between sections */
+.dashboard-section + .dashboard-section::before {
+  content: "";
+  position: absolute;
+  top: -1.5rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(232,201,126,0.08) 20%,
+    rgba(232,201,126,0.12) 50%,
+    rgba(232,201,126,0.08) 80%,
+    transparent 100%
+  );
+}
+
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.25rem;
+}
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-brand-white); margin: 0;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.section-badge {
+  font-family: var(--font-body); font-size: 0.625rem; font-weight: 700;
+  background: var(--color-brand-accent); color: var(--color-brand-black);
+  border-radius: 10px; padding: 0.15rem 0.55rem;
+  vertical-align: middle;
+  box-shadow: 0 0 6px rgba(232,201,126,0.2);
+}
+.section-link {
+  display: inline-flex; align-items: center; gap: 0.2rem;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 500;
+  color: rgba(255,255,255,0.3); text-decoration: none;
+  white-space: nowrap; flex-shrink: 0;
+  transition: color 0.15s;
+}
+.section-link:hover { color: var(--color-brand-accent); }
+
+/* ── Continue Watching — glassmorphism cards ── */
+.progress-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+.progress-card {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.3s;
+}
+.progress-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(232,201,126,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.progress-poster {
+  width: 54px; height: 80px; object-fit: cover;
+  border-radius: var(--radius-sm); flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.progress-poster-placeholder {
+  width: 54px; height: 80px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.4rem;
+  color: rgba(255,255,255,0.15); flex-shrink: 0;
+}
+.progress-info { flex: 1; min-width: 0; }
+.progress-type {
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--color-brand-accent); margin: 0 0 0.25rem;
+}
+.progress-title {
+  font-family: var(--font-display); font-size: 0.95rem; font-weight: 600;
+  color: var(--color-brand-white); margin: 0 0 0.3rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.progress-meta {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-body); font-size: 0.7rem;
+  color: rgba(255,255,255,0.3); margin-bottom: 0.5rem;
+}
+
+/* Progress bar — gold with subtle glow */
+.progress-bar-wrap {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--color-brand-accent), #f0dfa0);
+  border-radius: 2px;
+  transition: width 0.3s;
+  box-shadow: 0 0 6px rgba(232,201,126,0.3);
+}
+
+/* Play icon reveal */
+.progress-play {
+  color: rgba(255,255,255,0.15); flex-shrink: 0;
+  opacity: 0; transition: opacity 0.2s, color 0.2s;
+}
+.progress-card:hover .progress-play {
+  opacity: 1;
+  color: var(--color-brand-accent);
+}
+
+/* ── My List — glassmorphism cards ── */
+.watchlist-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+.watchlist-card {
+  display: flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.watchlist-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(232,201,126,0.15);
+}
+.watchlist-link {
+  display: flex; align-items: center; gap: 1rem;
+  flex: 1; min-width: 0; text-decoration: none;
+}
+.watchlist-remove-btn {
+  background: none; border: none;
+  color: rgba(255,255,255,0.2); cursor: pointer;
+  padding: 0.4rem; flex-shrink: 0; border-radius: var(--radius-sm);
+  transition: color 0.2s; display: flex; align-items: center;
+}
+.watchlist-remove-btn:hover { color: #f87171; }
+
+/* ── Empty states ── */
+.dashboard-empty {
+  text-align: center; padding: 3.5rem 0;
+  font-family: var(--font-body);
+  color: rgba(255,255,255,0.3);
+}
+.dashboard-empty--sm { padding: 1.5rem 0; }
+
+/* Browse Works button — gold with permanent glow */
+.browse-btn {
+  display: inline-block; margin-top: 1rem;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  padding: 0.7rem 1.5rem; border-radius: var(--radius-sm); text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(232,201,126,0.2);
+}
+.browse-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232,201,126,0.35);
+}
+
+/* ── Notifications preview ── */
+.notif-list {
+  list-style: none; margin: 0; padding: 0;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.notif-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.02);
+  transition: background 0.15s;
+}
+.notif-item:last-child { border-bottom: none; }
+
+/* Unread — gold left accent */
+.notif-item--unread {
+  background: rgba(232,201,126,0.03);
+  border-left: 2px solid var(--color-brand-accent);
+}
+.notif-icon {
+  display: flex; align-items: center;
+  color: var(--color-brand-accent);
+  flex-shrink: 0; margin-top: 0.15rem;
+  opacity: 0.7;
+}
+.notif-item--unread .notif-icon { opacity: 1; }
+.notif-body { flex: 1; min-width: 0; }
+.notif-title {
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  color: rgba(255,255,255,0.7); margin: 0 0 0.2rem;
+  text-decoration: none; display: block;
+}
+.notif-item--unread .notif-title { color: var(--color-brand-white); font-weight: 600; }
+a.notif-title:hover { color: var(--color-brand-accent); }
+.notif-text {
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: rgba(255,255,255,0.25); margin: 0;
+  line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.notif-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--color-brand-accent);
+  flex-shrink: 0; margin-top: 0.45rem;
+  box-shadow: 0 0 6px rgba(232,201,126,0.3);
+}
+.notif-mark-all-form { margin-top: 0.75rem; }
+.notif-mark-all-btn {
+  background: none; border: none; padding: 0;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 500;
+  color: rgba(255,255,255,0.3); cursor: pointer;
+  transition: color 0.15s;
+}
+.notif-mark-all-btn:hover { color: var(--color-brand-accent); }
+
+/* ── Section clear button ── */
+.section-clear-btn {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-body); font-size: 0.68rem; font-weight: 500;
+  color: rgba(255,255,255,0.3); cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.section-clear-btn:hover {
+  color: #f87171;
+  border-color: rgba(248,113,113,0.3);
+  background: rgba(248,113,113,0.06);
+}
+.section-clear-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Progress card with actions overlay ── */
+.progress-card-wrap {
+  position: relative;
+}
+.progress-card-actions {
+  position: absolute; top: 0.5rem; right: 0.5rem;
+  display: flex; gap: 0.2rem;
+  opacity: 0; transition: opacity 0.15s;
+}
+.progress-card-wrap:hover .progress-card-actions { opacity: 1; }
+.dash-card-remove-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: var(--radius-sm);
+  background: rgba(10,10,10,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.3); cursor: pointer;
+  transition: all 0.15s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.dash-card-remove-btn:hover {
+  color: #f87171;
+  border-color: rgba(248,113,113,0.3);
+}
+.dash-card-remove-btn--reset:hover {
+  color: var(--color-brand-accent);
+  border-color: rgba(232,201,126,0.3);
+}
+.dash-card-remove-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Confirm dialog — glassmorphism ── */
+.dash-confirm-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.dash-confirm {
+  background: rgba(14,14,14,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2rem;
+  max-width: 380px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(232,201,126,0.03);
+}
+.dash-confirm-msg {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+  color: var(--color-brand-white); margin: 0 0 0.5rem;
+}
+.dash-confirm-sub {
+  font-family: var(--font-body); font-size: 0.82rem;
+  color: rgba(255,255,255,0.4); margin: 0 0 1.5rem; line-height: 1.6;
+}
+.dash-confirm-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+.dash-confirm-cancel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
+  color: rgba(255,255,255,0.5); cursor: pointer;
+  transition: all 0.15s;
+}
+.dash-confirm-cancel:hover {
+  color: var(--color-brand-white);
+  border-color: rgba(255,255,255,0.15);
+}
+.dash-confirm-ok {
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+  color: #fff; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.dash-confirm-ok:hover { opacity: 0.85; }
+.dash-confirm-ok:disabled,
+.dash-confirm-cancel:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Settings shortcuts — frosted glass ── */
+.settings-shortcuts {
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--radius-md); overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+.settings-shortcut-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.settings-shortcut-row:last-child { border-bottom: none; }
+.settings-shortcut-row:hover {
+  background: rgba(232,201,126,0.04);
+  color: var(--color-brand-white);
+}
+.settings-shortcut-arrow {
+  margin-left: auto;
+  color: rgba(255,255,255,0.15);
+  transition: color 0.15s;
+}
+.settings-shortcut-row:hover .settings-shortcut-arrow {
+  color: var(--color-brand-accent);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .browse-btn,
+  .progress-card,
+  .watchlist-card { transition: none; }
+  .browse-btn:hover { transform: none; }
+}

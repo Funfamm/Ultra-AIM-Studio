@@ -1,0 +1,634 @@
+/* Admin — Email settings page + sub-pages (logs, suppressions) */
+
+.email-page {
+  max-width: 900px;
+}
+
+.email-sub {
+  font-size: 0.875rem;
+  color: var(--color-brand-muted);
+  margin: -0.5rem 0 2rem;
+}
+
+/* ── Section ─────────────────────────────────── */
+
+.email-section {
+  margin-bottom: 2.5rem;
+}
+
+.email-section-title {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-accent);
+  margin: 0 0 1rem;
+}
+
+.email-hint {
+  font-size: 0.8rem;
+  color: var(--color-brand-muted);
+  margin: -0.5rem 0 1rem;
+  line-height: 1.5;
+}
+
+.email-empty {
+  font-size: 0.85rem;
+  color: var(--color-brand-muted);
+}
+
+/* ── Config cards ────────────────────────────── */
+
+.email-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.email-config-card {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.email-config-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-muted);
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+}
+
+.email-config-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.email-config-val {
+  font-size: 0.85rem;
+  color: var(--color-brand-light);
+  font-weight: 500;
+  margin: 0;
+}
+
+.email-config-badge {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--color-brand-surface);
+  color: var(--color-brand-muted);
+  font-weight: 600;
+}
+
+.email-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.email-status-dot--ok   { background: #4ade80; }
+.email-status-dot--warn { background: #f59e0b; }
+.email-status-dot--err  { background: var(--color-brand-red); }
+
+/* ── Test button ─────────────────────────────── */
+
+.email-test-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.email-test-btn {
+  padding: 0.5rem 1.25rem;
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.email-test-btn:hover:not(:disabled) {
+  border-color: var(--color-brand-accent);
+  color: var(--color-brand-accent);
+}
+
+.email-test-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.email-test-ok  { font-size: 0.82rem; color: #4ade80; margin: 0; }
+.email-test-err { font-size: 0.82rem; color: var(--color-brand-red); margin: 0; }
+
+/* ── Email types ─────────────────────────────── */
+
+.email-types-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.email-type-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+}
+
+.email-type-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.email-type-dot--on  { background: #4ade80; }
+.email-type-dot--off { background: var(--color-brand-border); }
+
+.email-type-name {
+  font-weight: 600;
+  color: var(--color-brand-light);
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.email-type-trigger {
+  color: var(--color-brand-muted);
+  flex: 1;
+}
+
+.email-type-badge {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.email-type-badge--future {
+  background: var(--color-brand-surface);
+  color: var(--color-brand-muted);
+}
+
+/* ── Stats ───────────────────────────────────── */
+
+.email-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.email-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.email-stat-val {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-brand-white);
+  font-family: var(--font-display);
+}
+
+.email-stat-val--red   { color: var(--color-brand-red); }
+.email-stat-val--muted { color: var(--color-brand-muted); }
+
+.email-stat-label {
+  font-size: 0.72rem;
+  color: var(--color-brand-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+/* ── Log table ───────────────────────────────── */
+
+.email-log-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+}
+
+.email-log-table,
+.email-sup-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.email-log-table th,
+.email-sup-table th {
+  text-align: left;
+  padding: 0.6rem 0.875rem;
+  background: var(--color-brand-surface);
+  color: var(--color-brand-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.email-log-table td,
+.email-sup-table td {
+  padding: 0.6rem 0.875rem;
+  border-top: 1px solid var(--color-brand-border);
+  color: var(--color-brand-light);
+  vertical-align: middle;
+}
+
+.email-log-table tr:hover td,
+.email-sup-table tr:hover td {
+  background: var(--color-brand-surface);
+}
+
+.elog-status-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.elog-sent       { color: #4ade80; }
+.elog-failed     { color: var(--color-brand-red); }
+.elog-suppressed { color: var(--color-brand-muted); }
+
+.elog-to      { color: var(--color-brand-light); }
+.elog-subject { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-brand-muted); }
+.elog-provider { color: var(--color-brand-muted); font-size: 0.75rem; }
+.elog-date    { color: var(--color-brand-muted); white-space: nowrap; font-size: 0.75rem; }
+
+.elog-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--color-brand-surface);
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-brand-muted);
+  white-space: nowrap;
+}
+
+/* ── Suppression form ────────────────────────── */
+
+.email-sup-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.email-sup-input {
+  padding: 0.45rem 0.75rem;
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  min-width: 200px;
+}
+
+.email-sup-input--reason { min-width: 150px; }
+
+.email-sup-input:focus {
+  outline: none;
+  border-color: var(--color-brand-accent);
+}
+
+.email-sup-btn {
+  padding: 0.45rem 1rem;
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.email-sup-btn:hover { border-color: var(--color-brand-accent); }
+
+.email-sup-remove {
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  color: var(--color-brand-muted);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.email-sup-remove:hover:not(:disabled) {
+  border-color: var(--color-brand-red);
+  color: var(--color-brand-red);
+}
+
+.email-sup-table {
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ── Config sub-text ─────────────────────────── */
+
+.email-config-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  color: var(--color-brand-muted);
+  word-break: break-all;
+}
+
+/* ── Section head (title + view-all link) ────── */
+
+.email-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.email-view-all {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-brand-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.email-view-all:hover { text-decoration: underline; }
+
+/* ── Back link ───────────────────────────────── */
+
+.email-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+}
+.email-back-link:hover { color: var(--color-brand-light); }
+
+/* ── Filter pills ────────────────────────────── */
+
+.email-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.email-filter-pill {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-dark);
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.email-filter-pill:hover {
+  border-color: var(--color-brand-accent);
+  color: var(--color-brand-light);
+}
+.email-filter-pill--active {
+  border-color: var(--color-brand-accent);
+  color: var(--color-brand-accent);
+  background: rgba(232,201,126,0.08);
+}
+
+/* ── Additional status colours ───────────────── */
+
+.elog-queued  { color: #f59e0b; }
+.elog-skipped { color: var(--color-brand-muted); }
+
+/* ── Provider routing grid ───────────────────── */
+
+.email-routing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.email-routing-col {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.email-routing-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-accent);
+  margin: 0 0 0.75rem;
+}
+
+.email-routing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.email-routing-list li {
+  font-size: 0.8rem;
+  color: var(--color-brand-muted);
+  padding-left: 0.75rem;
+  position: relative;
+}
+.email-routing-list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--color-brand-border);
+}
+
+/* ── Email type provider column ──────────────── */
+
+.email-type-provider {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-brand-muted);
+  background: var(--color-brand-surface);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* ── Tab navigation ──────────────────────────── */
+
+.etab-nav {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-brand-border);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.etab-nav::-webkit-scrollbar { display: none; }
+
+.etab-link {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  padding: 0.6rem 1.1rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.etab-link:hover { color: var(--color-brand-light); }
+.etab-link--active {
+  color: var(--color-brand-accent);
+  border-bottom-color: var(--color-brand-accent);
+}
+
+/* ── Suppression action buttons ──────────────── */
+
+.esup-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Hard-delete variant — appears as secondary danger */
+.email-sup-remove--del {
+  border-color: transparent;
+  color: var(--color-brand-border);
+}
+.email-sup-remove--del:hover:not(:disabled) {
+  border-color: var(--color-brand-red);
+  color: var(--color-brand-red);
+}
+
+/* ── Bulk provider selector ──────────────────── */
+
+.eprovider-form { display: flex; flex-direction: column; }
+
+.eprovider-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.eprovider-card {
+  display: block;
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.eprovider-card:hover { border-color: rgba(255,255,255,0.2); }
+.eprovider-card--active { border-color: var(--color-brand-accent); }
+.eprovider-card--dim { opacity: 0.65; }
+
+.eprovider-radio-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.eprovider-radio { accent-color: var(--color-brand-accent); width: 15px; height: 15px; flex-shrink: 0; }
+
+.eprovider-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-brand-light);
+  flex: 1;
+}
+
+.eprovider-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.eprovider-badge--ok   { background: rgba(74,222,128,0.12); color: #4ade80; }
+.eprovider-badge--warn { background: var(--color-brand-surface); color: var(--color-brand-muted); }
+.eprovider-badge--dim  { background: transparent; color: var(--color-brand-muted); border: 1px solid var(--color-brand-border); }
+
+.eprovider-desc {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+  padding-left: 1.4rem;
+  line-height: 1.5;
+}
+
+.eprovider-hint {
+  font-size: 0.72rem;
+  color: #f59e0b;
+  margin: 0.3rem 0 0;
+  padding-left: 1.4rem;
+}
+
+/* ── Failed log error detail row ─────────────── */
+
+.elog-error-row td {
+  background: rgba(192, 57, 43, 0.06);
+  border-top: none;
+  padding-top: 0;
+  padding-bottom: 0.6rem;
+}
+
+.elog-error-cell {
+  font-size: 0.75rem;
+  color: #f87171;
+  font-family: monospace;
+  line-height: 1.5;
+  word-break: break-word;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.6rem !important;
+}
+
+/* ── Import textarea ─────────────────────────── */
+
+.email-import-textarea {
+  min-height: 120px;
+  resize: vertical;
+  width: 100%;
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}

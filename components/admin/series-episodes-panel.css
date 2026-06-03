@@ -1,0 +1,59 @@
+/* Series Episodes Panel — admin-only, rendered only on /admin/works/[id] for Series */
+
+.sep-panel {
+  max-width: 900px;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-brand-border);
+}
+
+.sep-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sep-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-brand-white);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sep-count {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-brand-muted);
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 20px;
+  padding: 0 0.55rem;
+  line-height: 1.6;
+}
+
+.sep-empty {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-brand-muted);
+  padding: 2rem 0;
+  margin: 0;
+}
+
+.sep-num {
+  color: var(--color-brand-muted);
+  font-variant-numeric: tabular-nums;
+  width: 36px;
+}
+
+.sep-meta {
+  color: var(--color-brand-muted);
+  font-variant-numeric: tabular-nums;
+}

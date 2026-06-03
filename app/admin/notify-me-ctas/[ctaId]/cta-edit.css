@@ -1,0 +1,339 @@
+/* Admin — CTA create/edit page + follow-up email section */
+
+.cta-edit-page {
+  padding: 2rem 0;
+  max-width: 680px;
+}
+
+/* ── Back ── */
+.cta-edit-back {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--color-brand-muted); text-decoration: none;
+  margin-bottom: 1.75rem; transition: color 0.15s;
+}
+.cta-edit-back:hover { color: var(--color-brand-white); }
+
+/* ── Header ── */
+.cta-edit-head {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--color-brand-white); margin-bottom: 0.35rem;
+}
+.cta-edit-head h1 {
+  font-family: var(--font-display); font-size: 1.5rem;
+  font-weight: 700; letter-spacing: -0.01em; margin: 0;
+}
+.cta-edit-sub {
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-brand-muted); margin: 0 0 2rem;
+}
+.cta-edit-sub strong { color: var(--color-brand-light); }
+
+/* ── Form ── */
+.cta-form {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px; padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+
+.cta-form-ok {
+  font-family: var(--font-body); font-size: 0.8125rem;
+  color: #4ade80; margin: 0;
+  padding: 0.6rem 0.875rem;
+  background: rgba(74, 222, 128, 0.08);
+  border-radius: 3px;
+}
+.cta-form-err {
+  font-family: var(--font-body); font-size: 0.8125rem;
+  color: var(--color-brand-red); margin: 0;
+  padding: 0.6rem 0.875rem;
+  background: rgba(192, 57, 43, 0.1);
+  border-radius: 3px;
+}
+
+.cta-form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.cta-form-field--inline { flex-direction: row; align-items: center; justify-content: space-between; }
+
+.cta-form-label {
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--color-brand-muted);
+}
+.cta-form-optional {
+  font-weight: 400; text-transform: none; letter-spacing: 0; opacity: 0.7;
+}
+.cta-form-readonly {
+  font-family: var(--font-body); font-size: 0.9rem;
+  color: var(--color-brand-light); margin: 0;
+}
+
+.cta-form-input,
+.cta-form-select,
+.cta-form-textarea {
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-brand-white);
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 3px; padding: 0.6rem 0.75rem;
+  outline: none; transition: border-color 0.15s;
+  width: 100%;
+}
+.cta-form-input:focus,
+.cta-form-select:focus,
+.cta-form-textarea:focus {
+  border-color: var(--color-brand-accent);
+}
+.cta-form-input--sm { width: 120px; }
+
+.cta-form-textarea { resize: vertical; }
+
+.cta-form-hint {
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: var(--color-brand-muted); margin: 0;
+}
+
+/* ── Toggle ── */
+.cta-toggle { position: relative; display: inline-flex; cursor: pointer; }
+.cta-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.cta-toggle-track {
+  display: block; width: 38px; height: 22px;
+  background: var(--color-brand-border);
+  border-radius: 11px; transition: background 0.2s;
+}
+.cta-toggle input:checked ~ .cta-toggle-track {
+  background: var(--color-brand-accent);
+}
+.cta-toggle-track::after {
+  content: ""; position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%; background: var(--color-brand-white);
+  transition: transform 0.2s;
+}
+.cta-toggle input:checked ~ .cta-toggle-track::after {
+  transform: translateX(16px);
+}
+
+/* ── Form actions ── */
+.cta-form-actions {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding-top: 0.5rem; border-top: 1px solid var(--color-brand-border);
+}
+.cta-form-save {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  border: none; border-radius: 2px;
+  padding: 0.6rem 1.4rem; cursor: pointer;
+  transition: filter 0.15s; white-space: nowrap;
+}
+.cta-form-save:hover:not(:disabled) { filter: brightness(1.08); }
+.cta-form-save:disabled { opacity: 0.55; cursor: not-allowed; }
+.cta-form-spin { animation: cta-spin 0.7s linear infinite; }
+@keyframes cta-spin { to { transform: rotate(360deg); } }
+
+.cta-form-delete {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500;
+  color: var(--color-brand-muted);
+  background: none; border: none; cursor: pointer;
+  transition: color 0.15s; margin-left: auto;
+}
+.cta-form-delete:hover { color: var(--color-brand-red); }
+
+/* ── Signups section ── */
+.cta-signups {
+  margin-top: 2.5rem;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px; overflow: hidden;
+}
+.cta-signups-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--color-brand-dark);
+  border-bottom: 1px solid var(--color-brand-border);
+}
+.cta-signups-title {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: var(--color-brand-white); margin: 0;
+}
+.cta-signups-count {
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: var(--color-brand-muted);
+}
+.cta-signups-empty {
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-brand-muted); padding: 1.5rem 1.25rem; margin: 0;
+}
+
+/* ── Signups table ── */
+.cta-table-wrap { overflow-x: auto; }
+.cta-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-body); font-size: 0.825rem;
+}
+.cta-table thead th {
+  text-align: left; padding: 0.625rem 1rem;
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--color-brand-muted);
+  border-bottom: 1px solid var(--color-brand-border);
+  background: var(--color-brand-dark);
+}
+.cta-table tbody tr { border-bottom: 1px solid var(--color-brand-border); }
+.cta-table tbody tr:last-child { border-bottom: none; }
+.cta-table td {
+  padding: 0.7rem 1rem;
+  color: var(--color-brand-light);
+}
+.cta-table-more {
+  font-family: var(--font-body); font-size: 0.75rem;
+  color: var(--color-brand-muted);
+  padding: 0.75rem 1rem; margin: 0;
+  border-top: 1px solid var(--color-brand-border);
+}
+
+/* ── Work selector (shown when "+ New CTA" clicked without workId) ── */
+.cta-work-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 1.25rem;
+}
+
+.cta-work-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--color-brand-border);
+  background: var(--color-brand-dark);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.cta-work-option:last-child {
+  border-bottom: none;
+}
+
+.cta-work-option:hover {
+  background: var(--color-brand-surface);
+}
+
+.cta-work-option-title {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-brand-white);
+}
+
+.cta-work-option-type {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-muted);
+  background: rgba(107, 114, 128, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.cta-work-empty {
+  margin-top: 1.25rem;
+  padding: 1.5rem;
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+}
+
+.cta-work-empty p {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-brand-muted);
+  margin: 0 0 1rem;
+}
+
+/* ── Follow-up email section ── */
+.cta-followup {
+  margin-top: 2rem;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-brand-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cta-followup-desc {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+.cta-followup-desc strong { color: var(--color-brand-light); }
+
+.cta-followup-warn {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: #f59e0b;
+  margin: 0;
+}
+
+.cta-followup-confirm {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-brand-light);
+  margin: 0;
+}
+
+.cta-followup-btn {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+  color: var(--color-brand-black); background: var(--color-brand-accent);
+  border: none; border-radius: 2px;
+  padding: 0.55rem 1.25rem; cursor: pointer;
+  transition: filter 0.15s; white-space: nowrap;
+  align-self: flex-start;
+}
+.cta-followup-btn:hover:not(:disabled) { filter: brightness(1.08); }
+.cta-followup-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.cta-followup-btn--confirm {
+  background: #f59e0b;
+}
+
+.cta-followup-cancel {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500;
+  color: var(--color-brand-muted);
+  background: none; border: none; cursor: pointer;
+  transition: color 0.15s; padding: 0;
+  align-self: flex-start;
+}
+.cta-followup-cancel:hover { color: var(--color-brand-light); }
+
+.cta-followup-ok {
+  font-family: var(--font-body); font-size: 0.8125rem;
+  color: #4ade80; margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(74, 222, 128, 0.08);
+  border-radius: 3px;
+}
+
+.cta-followup-err {
+  font-family: var(--font-body); font-size: 0.8125rem;
+  color: var(--color-brand-red); margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: rgba(192, 57, 43, 0.1);
+  border-radius: 3px;
+}
+

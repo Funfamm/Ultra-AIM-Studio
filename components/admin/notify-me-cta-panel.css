@@ -1,0 +1,210 @@
+/* Admin — Notify Me CTA Panel */
+
+.ncta-panel {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.ncta-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.ncta-panel-title {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-brand-white);
+  margin: 0;
+}
+
+.ncta-panel-signup-count {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+}
+
+.ncta-panel-signup-count strong {
+  color: var(--color-brand-accent);
+}
+
+/* ── Toggle row ── */
+.ncta-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.ncta-toggle-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-brand-light);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ── Form grid ── */
+.ncta-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .ncta-panel-grid { grid-template-columns: 1fr; }
+}
+
+.ncta-panel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ncta-panel-field--full {
+  grid-column: 1 / -1;
+}
+
+.ncta-panel-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-muted);
+}
+
+.ncta-panel-input,
+.ncta-panel-select {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  color: var(--color-brand-white);
+  padding: 0.45rem 0.7rem;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.ncta-panel-input:focus,
+.ncta-panel-select:focus { border-color: var(--color-brand-accent); }
+
+.ncta-panel-hint {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--color-brand-muted);
+  margin: 0;
+}
+
+/* ── Actions row ── */
+.ncta-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ncta-panel-save {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--color-brand-accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ncta-panel-save:disabled { opacity: 0.5; cursor: default; }
+.ncta-panel-save:hover:not(:disabled) { opacity: 0.85; }
+
+.ncta-panel-delete {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 4px;
+  color: #f87171;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.ncta-panel-delete:hover { border-color: #f87171; background: rgba(248,113,113,0.07); }
+
+.ncta-panel-ok  { font-size: 0.78rem; color: #4ade80; font-family: var(--font-body); }
+.ncta-panel-err { font-size: 0.78rem; color: #f87171; font-family: var(--font-body); }
+
+/* ── Signups mini-table ── */
+.ncta-signups {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--color-brand-border);
+  padding-top: 1rem;
+}
+
+.ncta-signups-title {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-muted);
+  margin: 0 0 0.75rem;
+}
+
+.ncta-signups-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+}
+
+.ncta-signups-table th {
+  text-align: left;
+  color: var(--color-brand-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 0 0.5rem;
+  border-bottom: 1px solid var(--color-brand-border);
+}
+
+.ncta-signups-table td {
+  padding: 0.55rem 0;
+  color: var(--color-brand-light);
+  border-bottom: 1px solid rgba(42,42,42,0.6);
+  vertical-align: top;
+}
+
+.ncta-signups-table tr:last-child td { border-bottom: none; }
+
+.ncta-signups-email {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+}
+
+.ncta-signups-date {
+  font-size: 0.7rem;
+  color: var(--color-brand-border);
+  white-space: nowrap;
+}
+
+.ncta-signups-empty {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  font-style: italic;
+  padding-top: 0.5rem;
+}

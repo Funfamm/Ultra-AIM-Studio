@@ -1,0 +1,189 @@
+/* ── Film Card — Premium Cinematic ───────────────────── */
+.fc {
+  display: block;
+  position: relative;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  outline-offset: 2px;
+}
+.fc:hover {
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.65), 0 0 40px rgba(232,201,126,0.06);
+}
+.fc:focus-visible {
+  outline: 2px solid var(--color-brand-accent);
+  outline-offset: 3px;
+}
+
+/* Poster container */
+.fc-poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-surface);
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: border-color 0.3s;
+}
+.fc:hover .fc-poster {
+  border-color: rgba(232,201,126,0.15);
+}
+
+/* Placeholder */
+.fc-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgba(42,42,42,0.6);
+  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+}
+
+/* Bottom gradient — deeper for readability */
+.fc-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.6) 25%,
+    rgba(0,0,0,0) 55%
+  );
+}
+
+/* Play overlay */
+.fc-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+  background: rgba(0,0,0,0.15);
+}
+.fc:hover .fc-play-overlay { opacity: 1; }
+
+.fc-play-circle {
+  background: rgba(232,201,126,0.9);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-black);
+  box-shadow: 0 4px 20px rgba(232,201,126,0.3);
+  transition: transform 0.2s;
+}
+.fc:hover .fc-play-circle { transform: scale(1.08); }
+
+/* Info section — bottom */
+.fc-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+}
+.fc-genre {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-brand-accent);
+  margin-bottom: 0.35rem;
+  opacity: 0.85;
+}
+.fc-title {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-brand-white);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+}
+
+/* Type badge — top-left — frosted glass */
+.fc-type-badge {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  background: rgba(10,10,10,0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.fc-type-badge span {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Status badge — top-right (upcoming / in-production) */
+.fc-status-badge {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  background: rgba(232,201,126,0.15);
+  border: 1px solid rgba(232,201,126,0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+}
+.fc-status-badge span {
+  font-family: var(--font-body);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+/* Lock badge — top-right (guests only) */
+.fc-lock-badge {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  background: rgba(10,10,10,0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--color-brand-accent);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .fc,
+  .fc-play-overlay,
+  .fc-play-circle,
+  .fc-poster { transition: none; }
+  .fc:hover { transform: none; }
+  .fc:hover .fc-play-circle { transform: none; }
+}

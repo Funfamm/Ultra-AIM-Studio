@@ -1,0 +1,149 @@
+/* Admin Audit Log — audit.css */
+
+/* ── Header ── */
+.alog-total {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-brand-muted);
+}
+
+/* ── Filter bar ── */
+.alog-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.alog-select {
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  color: var(--color-brand-light);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding: 0.45rem 0.75rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.alog-select:focus { border-color: var(--color-brand-accent); }
+
+.alog-filter-btn {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  color: var(--color-brand-light);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.alog-filter-btn:hover { border-color: rgba(255,255,255,0.25); }
+
+.alog-clear {
+  font-size: 0.75rem;
+  color: var(--color-brand-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.alog-clear:hover { color: var(--color-brand-light); }
+
+/* ── Table cell styles ── */
+.alog-when {
+  vertical-align: top;
+  padding-top: 0.95rem !important;
+}
+
+.alog-date {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--color-brand-border);
+  margin-top: 0.15rem;
+}
+
+.alog-email {
+  font-size: 0.78rem;
+  color: var(--color-brand-muted);
+  font-family: monospace;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alog-detail {
+  font-size: 0.78rem;
+  color: var(--color-brand-light);
+  max-width: 260px;
+}
+
+.alog-dash {
+  color: var(--color-brand-border);
+}
+
+/* ── Action badges ── */
+.alog-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.alog-badge--accent {
+  background: rgba(232, 201, 126, 0.1);
+  color: var(--color-brand-accent);
+}
+
+.alog-badge--red {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+.alog-badge--green {
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+}
+
+.alog-badge--muted {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-brand-muted);
+}
+
+/* Reuse pagination classes from users.css via admin-layout.css shared styles */
+/* .upagination, .upag-btn, .upag-info are defined in users.css — re-defined here for isolation */
+.upagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-brand-border);
+}
+
+.upag-btn {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-brand-light);
+  background: var(--color-brand-dark);
+  border: 1px solid var(--color-brand-border);
+  border-radius: 4px;
+  padding: 0.4rem 0.85rem;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.upag-btn:hover        { border-color: rgba(255,255,255,0.25); color: var(--color-brand-white); }
+.upag-btn--disabled    { opacity: 0.3; cursor: default; pointer-events: none; }
+.upag-info             { font-size: 0.78rem; color: var(--color-brand-muted); }

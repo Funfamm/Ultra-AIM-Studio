@@ -1,0 +1,1061 @@
+// AIM Studio Lite — Prisma Schema
+// Run: npx prisma db push  (after setting DATABASE_URL in .env)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum WorkType {
+  SHORT_FILM
+  FULL_FILM
+  SERIES
+  EPISODE
+  TRAILER
+  COMMERCIAL
+  BRANDING
+  CAMPAIGN
+  CASE_STUDY
+}
+
+enum WorkStatus {
+  DRAFT
+  IN_PRODUCTION
+  UPCOMING
+  PUBLISHED
+  PRIVATE
+}
+
+enum NotificationType {
+  NEW_RELEASE
+  NEW_EPISODE
+  ANNOUNCEMENT
+  WATCH_PROGRESS
+  ACCOUNT
+  SYSTEM
+  SECURITY
+  COMMENT_REPLY   // someone replied to your comment
+  COMMENT_REPORT  // admin: a comment was reported (for admin users)
+}
+
+enum CommentStatus {
+  PUBLISHED
+  HIDDEN
+  DELETED
+  FLAGGED
+}
+
+enum CommentReportReason {
+  SPAM
+  HARASSMENT
+  HATE_OR_ABUSE
+  SEXUAL_CONTENT
+  VIOLENCE_OR_THREATS
+  PERSONAL_INFORMATION
+  OTHER
+}
+
+enum CommentReportStatus {
+  OPEN
+  REVIEWED
+  DISMISSED
+  ACTIONED
+}
+
+enum AnalyticsEventType {
+  PAGE_VIEW
+  WORK_VIEW
+  TRAILER_CLICK
+  WATCH_START
+  WATCH_PROGRESS
+  WATCH_COMPLETE
+  EPISODE_START
+  EPISODE_COMPLETE
+  SIGN_IN
+  SIGN_UP
+  SIGN_OUT
+  SAVE_WORK
+  UNSAVE_WORK
+  NOTIFICATION_OPEN
+  SETTINGS_UPDATE
+  CTA_IMPRESSION
+  CTA_SIGNUP
+  PAGE_LEAVE
+  LIKE_WORK
+  UNLIKE_WORK
+  SHARE_WORK
+}
+
+enum CtaType {
+  RELEASE       // coming-soon — collect before release
+  MORE          // more episodes / more content expected
+  POST_RELEASE  // already out; notify on next project
+}
+
+enum DeviceType {
+  MOBILE
+  TABLET
+  DESKTOP
+  BOT
+  UNKNOWN
+}
+
+// ── UserStatus — extended for soft-delete and purge lifecycle ──
+enum UserStatus {
+  ACTIVE
+  SUSPENDED     // blocked temporarily; records intact; admin can restore
+  DEACTIVATED   // soft-deleted by admin; cannot log in; records intact
+  DELETED       // marker after purge or self-delete; PII removed
+}
+
+enum EmailType {
+  PASSWORD_RESET
+  WELCOME
+  ACCOUNT
+  NOTIFICATION
+  NEW_RELEASE
+  NEW_EPISODE
+  ADMIN_ALERT
+  SECURITY_ALERT       // sent on suspicious events
+  FUTURE_CAMPAIGN
+  ANNOUNCEMENT         // studio-wide broadcast
+  NOTIFY_ME_FOLLOWUP   // CTA release-ready follow-up
+}
+
+enum EmailProvider {
+  GRAPH
+  SMTP
+  ACS
+  DEV_LOG
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+  SUPPRESSED
+  QUEUED
+  SKIPPED
+}
+
+// ── Security enums ─────────────────────────────────────────────
+
+enum SecurityEventType {
+  LOGIN_SUCCESS
+  LOGIN_FAILED
+  LOGIN_BLOCKED           // attempt blocked due to rate limit
+  NEW_DEVICE_LOGIN        // first login from this device fingerprint
+  NEW_LOCATION_LOGIN      // first login from this country/region
+  PASSWORD_RESET_REQUESTED
+  PASSWORD_RESET_COMPLETED
+  PASSWORD_CHANGED
+  GOOGLE_SIGN_IN
+  CREDENTIALS_SIGN_IN
+  USER_SUSPENDED
+  USER_UNSUSPENDED
+  USER_DEACTIVATED
+  USER_RESTORED
+  USER_PURGED
+  ROLE_CHANGED
+  ADMIN_SETTING_CHANGED
+  EMAIL_SETTING_CHANGED
+  SECURITY_ALERT_SENT
+  SESSION_REVOKED
+}
+
+enum SecuritySeverity {
+  INFO      // routine successful events
+  LOW       // minor anomaly, no action needed
+  MEDIUM    // something to watch — alert user
+  HIGH      // probable attack or compromised account
+  CRITICAL  // immediate admin attention required
+}
+
+enum SecurityAlertStatus {
+  OPEN
+  READ
+  RESOLVED
+  DISMISSED
+}
+
+// ─────────────────────────────────────────────
+// USER
+// ─────────────────────────────────────────────
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String     @unique
+  password      String?
+  role          Role       @default(USER)
+  status        UserStatus @default(ACTIVE)
+
+  // Suspension tracking
+  suspendedAt   DateTime?
+  suspendedBy   String?    // admin userId — plain String, not FK
+
+  // Soft-delete / deactivation tracking
+  deletedAt     DateTime?
+  deletedById   String?    // admin userId — plain String, not FK
+
+  // Login tracking — updated on every successful sign-in
+  lastLoginAt       DateTime?
+  lastLoginProvider String?  // "credentials" | "google"
+
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  progress      WatchProgress[]
+  accounts      Account[]
+  sessions      Session[]
+  refreshTokens RefreshToken[]
+  savedWorks    SavedWork[]
+  likes         WorkLike[]
+  preferences   UserPreferences?
+  notifications Notification[]
+  comments               Comment[]
+  commentLikes           CommentLike[]
+  commentReports         CommentReport[] @relation("CommentReporter")
+  commentReportsReviewed CommentReport[] @relation("CommentReportReviewer")
+
+  // Welcome onboarding — set once on first login/registration, never reset
+  welcomeEmailSentAt        DateTime?
+  welcomeNotificationSentAt DateTime?
+
+  // Session invalidation — increment to instantly revoke all existing JWTs
+  tokenVersion  Int        @default(0)
+
+  @@map("users")
+}
+
+// ─────────────────────────────────────────────
+// WORK  (replaces Film — covers all content types)
+// ─────────────────────────────────────────────
+
+model Work {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  type        WorkType
+  status      WorkStatus @default(DRAFT)
+  title       String
+  description String?
+  posterUrl      String?   // card poster, detail poster, and universal fallback
+  heroMobileUrl  String?   // 9:16 portrait hero for mobile hero sections
+  heroDesktopUrl String?   // 16:9 / 21:9 landscape hero for desktop
+  thumbnailUrl   String?   // landscape thumbnail for episode rows / compact previews
+
+  // Video URLs — stored only, files live in R2/S3 later
+  trailerUrl  String?   // short film, full film, series
+  videoUrl    String?   // main video (film, episode, commercial, branding)
+  teaserUrl   String?   // optional second video for commercials
+
+  // Film/series metadata
+  year        Int?
+  duration    Int?      // minutes
+  director    String?
+  genre       String?
+  genres      String[]  @default([])
+
+  // Client/portfolio metadata
+  clientName  String?
+  industry    String?
+  projectGoal String?
+  deliverables String?
+  caseStudy   String?
+  galleryUrls String[]  @default([])
+
+  // Display controls
+  requiresAuth               Boolean @default(false)
+  requiresLoginToViewTrailer Boolean @default(false)
+  featured        Boolean  @default(false)
+  showOnHome      Boolean  @default(false)
+  commentsEnabled Boolean  @default(true)
+  order           Int      @default(0)
+
+  // Player intelligence — optional, admin-configurable per episode/film
+  introStart    Int?      // seconds: Skip Intro button appears
+  introEnd      Int?      // seconds: Skip Intro seeks here
+  creditsStart  Int?      // seconds: Skip Credits button appears
+
+  // Content advisory — admin-selected per work
+  contentRating      String?   // e.g. "G", "PG", "PG-13", "R", "TV-MA", "NR"
+  contentDescriptors String[]  @default([])   // e.g. ["VIOLENCE","LANGUAGE","NUDITY"]
+
+  // Series → Episode relationship (self-referential)
+  parentId      String?
+  parent        Work?   @relation("WorkEpisodes", fields: [parentId], references: [id], onDelete: SetNull)
+  episodes      Work[]  @relation("WorkEpisodes")
+  episodeNumber Int?
+  seasonNumber  Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  progress        WatchProgress[]
+  savedBy         SavedWork[]
+  likes           WorkLike[]
+  notifications   Notification[]
+  analyticsEvents AnalyticsEvent[]
+  notifyMeCta     NotifyMeCta?
+  comments        Comment[]
+
+  @@map("works")
+}
+
+// ─────────────────────────────────────────────
+// WATCH PROGRESS
+// ─────────────────────────────────────────────
+
+model WatchProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  workId    String
+  seconds   Int      @default(0)
+  duration  Int?     // duration in minutes at time of save — used to compute % complete
+  completed Boolean  @default(false)
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work Work @relation(fields: [workId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workId])
+  @@map("watch_progress")
+}
+
+// ─────────────────────────────────────────────
+// WORK LIKE
+// Lightweight per-user like for any Work record (films, series, episodes).
+// userId is a plain String — survives account deletion analytics.
+// ─────────────────────────────────────────────
+
+model WorkLike {
+  id        String   @id @default(cuid())
+  userId    String
+  workId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work Work @relation(fields: [workId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workId])
+  @@index([workId])
+  @@map("work_likes")
+}
+
+// ─────────────────────────────────────────────
+// AUTH.JS ADAPTER MODELS
+// ─────────────────────────────────────────────
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ─────────────────────────────────────────────
+// PASSWORD RESET
+// ─────────────────────────────────────────────
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique  // SHA-256 of the raw token — raw token never stored
+  email     String
+  expires   DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+// ─────────────────────────────────────────────
+// WATCHLIST
+// ─────────────────────────────────────────────
+
+model SavedWork {
+  id        String   @id @default(cuid())
+  userId    String
+  workId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work Work @relation(fields: [workId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workId])
+  @@map("saved_works")
+}
+
+// ─────────────────────────────────────────────
+// USER PREFERENCES
+// ─────────────────────────────────────────────
+
+model UserPreferences {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  // Notification preferences
+  emailNewReleases   Boolean @default(true)
+  emailAccountAlerts Boolean @default(true)
+
+  // Playback preferences
+  autoplay       Boolean @default(true)
+  defaultQuality String  @default("auto") // "auto" | "1080p" | "720p" | "480p"
+
+  // Granular notification preferences (V1 dashboard)
+  inAppNotifications        Boolean @default(true)
+  emailNotifications        Boolean @default(false)
+  newReleaseNotifications   Boolean @default(true)
+  newEpisodeNotifications   Boolean @default(true)
+  announcementNotifications Boolean @default(true)
+  studioUpdates             Boolean @default(true)
+
+  // Granular playback preferences (V1 dashboard)
+  autoplayNextEpisode Boolean @default(true)
+  resumePlayback      Boolean @default(true)
+  reducedMotion       Boolean @default(false)
+
+  // Notification / email opt-ins (communications system)
+  notifyMeFollowupEmails     Boolean @default(true)   // CTA release-ready emails
+  savedWorkNotifications     Boolean @default(true)   // new episode/update on saved work
+  watchReminderNotifications Boolean @default(false)  // resume-watching prompts
+  securityEmails             Boolean @default(true)   // always true; cannot be disabled
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
+}
+
+// ─────────────────────────────────────────────
+// NOTIFICATIONS
+// ─────────────────────────────────────────────
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String?
+  href      String?
+  workId    String?
+  read      Boolean          @default(false)
+  expiresAt DateTime?
+  createdAt DateTime         @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  work Work? @relation(fields: [workId], references: [id], onDelete: SetNull)
+
+  @@map("notifications")
+}
+
+// ─────────────────────────────────────────────
+// VISITOR SESSION
+// Tracks guest + logged-in visit sessions.
+// userId is a plain field (not a FK) so analytics survive account deletion.
+// Country/region are derived from Vercel edge headers — raw IP is never stored.
+// ─────────────────────────────────────────────
+
+model VisitorSession {
+  id              String     @id @default(cuid())
+  visitorId       String     // opaque anonymous cookie value set by edge middleware
+  userId          String?    // plain — not a FK; populated on sign-in for conversion tracking
+  startedAt       DateTime   @default(now())
+  lastSeenAt      DateTime   @default(now())
+  endedAt         DateTime?
+  durationSeconds Int        @default(0)
+  landingPage     String?
+  referrer        String?
+  country         String?    // from x-vercel-ip-country header — no IP stored
+  region          String?    // from x-vercel-ip-region
+  city            String?    // from x-vercel-ip-city
+  deviceType      DeviceType @default(UNKNOWN)
+  browser         String?    // parsed: "Chrome 124", "Safari 17"
+  os              String?    // parsed: "iOS 17", "Android 14", "Windows 11"
+  isBot           Boolean    @default(false)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  events AnalyticsEvent[]
+
+  @@index([visitorId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("visitor_sessions")
+}
+
+// ─────────────────────────────────────────────
+// ANALYTICS EVENT
+// One row per meaningful user action.
+// userId is a plain field (not a FK) for the same privacy reason as VisitorSession.
+// Metadata payloads are capped at ~200 bytes at the application layer.
+// ─────────────────────────────────────────────
+
+model AnalyticsEvent {
+  id        String             @id @default(cuid())
+  visitorId String             // matches VisitorSession.visitorId
+  userId    String?            // plain — not a FK; null for guests
+  sessionId String?
+  type      AnalyticsEventType
+  path      String?            // page path e.g. "/works/my-film"
+  workId    String?
+  metadata  Json?              // e.g. { seconds: 45, percent: 60, method: "google" }
+  createdAt DateTime           @default(now())
+
+  session VisitorSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  work    Work?           @relation(fields: [workId], references: [id], onDelete: SetNull)
+
+  @@index([visitorId])
+  @@index([userId])
+  @@index([type])
+  @@index([workId])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+// ─────────────────────────────────────────────
+// EMAIL LOG
+// One row per send attempt — success or failure.
+// Raw tokens are never stored here.
+// ─────────────────────────────────────────────
+
+model EmailLog {
+  id        String        @id @default(cuid())
+  to        String
+  from      String
+  subject   String
+  type      EmailType
+  provider  EmailProvider
+  status    EmailStatus
+  error     String?       // error message on failure, null on success
+  metadata  Json?         // optional extra context
+  createdAt DateTime      @default(now())
+  sentAt    DateTime?     // set when status = SENT
+
+  @@index([to])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+  @@map("email_logs")
+}
+
+// ─────────────────────────────────────────────
+// EMAIL SUPPRESSION
+// Emails that must not receive further sends.
+// ─────────────────────────────────────────────
+
+model EmailSuppression {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  reason    String?  // free-text: "bounce", "complaint", "unsubscribe", "manual"
+  source    String?  // where it came from: "admin", "system", "user"
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@map("email_suppressions")
+}
+
+// ─────────────────────────────────────────────
+// ADMIN AUDIT LOG
+// Immutable record of every admin action.
+// actorId / targetId stored as plain Strings so records survive user deletion.
+// ─────────────────────────────────────────────
+
+model AdminAuditLog {
+  id          String   @id @default(cuid())
+  actorId     String   // admin who performed the action — plain String, not FK
+  actorEmail  String   // snapshot at time of action
+  targetId    String?  // affected user id — plain String, not FK
+  targetEmail String?  // snapshot at time of action
+  action      String   // e.g. ROLE_CHANGE | SUSPEND | UNSUSPEND | BULK_SUSPEND | PASSWORD_RESET_SENT
+  detail      String?  // human-readable context e.g. "USER → ADMIN"
+  createdAt   DateTime @default(now())
+
+  @@index([actorId])
+  @@index([targetId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("admin_audit_logs")
+}
+
+// ─────────────────────────────────────────────
+// ADMIN SETTINGS
+// Singleton row (id = "singleton") — upserted on every save.
+// ─────────────────────────────────────────────
+
+model AdminSettings {
+  id String @id @default("singleton")
+
+  // ── Email ──────────────────────────────────
+  emailSendingEnabled       Boolean @default(true)
+  primaryEmailProvider      String  @default("graph")
+  // Bulk email (ACS) — separate from transactional Graph
+  primaryBulkProvider       String  @default("acs")
+  bulkEmailSendingEnabled   Boolean @default(false)
+  testBulkEmailRecipient    String?
+  testEmailRecipient        String?
+  fromDisplayName           String  @default("AIM Studio")
+  replyToEmail              String?
+  adminAlertEmail           String?
+  welcomeEmailEnabled       Boolean @default(true)
+  passwordResetEmailEnabled Boolean @default(true)
+  notificationEmailEnabled  Boolean @default(false)
+
+  // ── Content Access ─────────────────────────
+  defaultRequireLoginToWatch       Boolean @default(false)
+  defaultRequireLoginToViewTrailer Boolean @default(false)
+  allowPublicProjectDetails        Boolean @default(true)
+  showLockedContentInCatalog       Boolean @default(true)
+
+  // ── Feature Visibility ─────────────────────
+  showCasting           Boolean @default(false)
+  showScripts           Boolean @default(false)
+  showTraining          Boolean @default(false)
+  showSponsors          Boolean @default(false)
+  showDonations         Boolean @default(false)
+  showCommunityComments Boolean @default(false)
+  showWatchParty        Boolean @default(false)
+  showNotifications     Boolean @default(true)
+
+  // ── Notifications ──────────────────────────
+  inAppNotificationsEnabled        Boolean @default(true)
+  newReleaseNotificationsEnabled   Boolean @default(true)
+  newEpisodeNotificationsEnabled   Boolean @default(true)
+  announcementNotificationsEnabled Boolean @default(true)
+
+  // ── Playback ───────────────────────────────
+  defaultAutoplayNextEpisode Boolean @default(true)
+  defaultResumePlayback      Boolean @default(true)
+  defaultVideoPreload        String  @default("none")
+
+  // ── Security / Auth ────────────────────────
+  allowGoogleSignIn      Boolean @default(true)
+  allowCredentialsSignIn Boolean @default(true)
+  allowNewRegistrations  Boolean @default(true)
+
+  // ── Security Policies (new) ────────────────
+  // Login throttling
+  failedLoginWindowMinutes Int @default(15)  // rolling window for counting failures
+  failedLoginMaxAttempts   Int @default(5)   // failures before soft cooldown
+  loginCooldownMinutes     Int @default(15)  // how long the cooldown lasts
+
+  // User alerts
+  notifyUserOnNewDevice             Boolean @default(true)
+  notifyUserOnNewLocation           Boolean @default(true)
+  notifyAdminOnSuspiciousAdminLogin Boolean @default(true)
+
+  // Device trust
+  allowUserDeviceTrust Boolean @default(true)
+
+  // Sensitive action re-auth
+  requireReauthForSensitiveActions Boolean @default(true)
+
+  // Purge
+  allowHardPurgeForSuperAdmin Boolean @default(true)
+
+  // ── Retention / Cleanup ───────────────────────
+  emailLogRetentionDays         Int @default(90)   // keep email logs N days
+  emailQueueRetentionDays       Int @default(30)   // keep completed/failed queue rows N days
+  notificationRetentionDays     Int @default(90)   // auto-clear read notifications after N days
+  visitorEventRetentionDays     Int @default(90)   // keep raw analytics events N days
+
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_settings")
+}
+
+// ─────────────────────────────────────────────
+// LOGIN ATTEMPT
+// One row per login attempt (success or failure).
+// Used for rate limiting and brute-force detection.
+// Raw IP is NEVER stored — only a SHA-256 hash.
+// Rows older than 30 days can be pruned safely.
+// ─────────────────────────────────────────────
+
+model LoginAttempt {
+  id                    String   @id @default(cuid())
+  email                 String   // normalized lowercase
+  userId                String?  // if user was found — plain String, not FK
+  provider              String   // "credentials" | "google"
+  success               Boolean
+  failureReason         String?  // "INVALID_PASSWORD" | "USER_NOT_FOUND" | "SUSPENDED" | "BLOCKED" | "DEACTIVATED"
+  ipHash                String?  // SHA-256(raw IP) — never raw IP
+  userAgentHash         String?  // SHA-256(user-agent string)
+  country               String?  // from Vercel edge header
+  region                String?
+  city                  String?
+  createdAt             DateTime @default(now())
+
+  @@index([email])
+  @@index([ipHash])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("login_attempts")
+}
+
+// ─────────────────────────────────────────────
+// SECURITY EVENT
+// Central log for all security-relevant events.
+// userId stored as plain String — survives account deletion.
+// Never stores raw IP. Never stores passwords or tokens.
+// ─────────────────────────────────────────────
+
+model SecurityEvent {
+  id                    String            @id @default(cuid())
+  userId                String?           // plain — not a FK; null for pre-auth events
+  actorUserId           String?           // admin who triggered the event, if applicable
+  type                  SecurityEventType
+  severity              SecuritySeverity
+  email                 String?           // snapshot — for pre-auth events where userId is null
+  ipHash                String?           // SHA-256(IP)
+  userAgentHash         String?           // SHA-256(UA)
+  deviceFingerprintHash String?           // matches UserDevice.fingerprintHash
+  provider              String?           // "credentials" | "google"
+  path                  String?
+  country               String?
+  region                String?
+  city                  String?
+  metadata              Json?             // extra context; never contains secrets
+  createdAt             DateTime          @default(now())
+
+  @@index([userId])
+  @@index([type])
+  @@index([severity])
+  @@index([email])
+  @@index([createdAt])
+  @@map("security_events")
+}
+
+// ─────────────────────────────────────────────
+// SECURITY ALERT
+// Actionable alerts surfaced to users and admins.
+// userId stored as plain String — survives account deletion.
+// ─────────────────────────────────────────────
+
+model SecurityAlert {
+  id          String              @id @default(cuid())
+  userId      String?             // plain — not a FK; null = admin-level alert
+  severity    SecuritySeverity
+  type        String              // mirrors SecurityEventType values
+  title       String
+  message     String
+  status      SecurityAlertStatus @default(OPEN)
+  metadata    Json?
+  createdAt   DateTime            @default(now())
+  readAt      DateTime?
+  resolvedAt  DateTime?
+
+  @@index([userId])
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+  @@map("security_alerts")
+}
+
+// ─────────────────────────────────────────────
+// USER DEVICE
+// Tracks known devices per user for new-device detection.
+// Fingerprint is a SHA-256 hash of UA + Accept-Language + country.
+// No raw user-agent stored. No cookies. No device serial.
+// userId stored as plain String — records survive account soft-delete.
+// ─────────────────────────────────────────────
+
+model UserDevice {
+  id               String     @id @default(cuid())
+  userId           String     // plain — not a FK; survives soft-delete
+  fingerprintHash  String     // SHA-256(ua + accept-language + country)
+  deviceType       DeviceType @default(UNKNOWN)
+  browser          String?    // e.g. "Chrome 124"
+  os               String?    // e.g. "Windows 11"
+  country          String?    // from Vercel edge header
+  region           String?
+  city             String?
+  firstSeenAt      DateTime   @default(now())
+  lastSeenAt       DateTime   @default(now())
+  trustedAt        DateTime?  // set when user marks this device as trusted
+  revokedAt        DateTime?  // set when user/admin revokes trust
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  @@unique([userId, fingerprintHash])
+  @@index([userId])
+  @@index([fingerprintHash])
+  @@map("user_devices")
+}
+
+// ─────────────────────────────────────────────
+// EMAIL TEMPLATE
+// Admin-editable named templates for each email type.
+// subject and bodyHtml support {{{variable}}} placeholders.
+// ─────────────────────────────────────────────
+
+model EmailTemplate {
+  id          String    @id @default(cuid())
+  name        String    @unique    // system key — e.g. "PASSWORD_RESET", "WELCOME"
+  label       String?              // human-readable display name
+  description String?              // what this template is used for
+  type        EmailType
+  subject     String
+  preheader   String?              // preview text shown in email clients after subject
+  bodyHtml    String    @db.Text
+  bodyText    String?   @db.Text   // plain-text fallback
+  isDefault   Boolean   @default(false)
+  isActive    Boolean   @default(true)
+  isSystem    Boolean   @default(false)  // system templates cannot be deleted
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("email_templates")
+}
+
+// ─────────────────────────────────────────────
+// EMAIL QUEUE
+// Buffer for all bulk sends (new release, new episode,
+// announcement, CTA follow-up). Processed in safe batches
+// by a background action — never sent inline with a request.
+// ─────────────────────────────────────────────
+
+model EmailQueue {
+  id          String        @id @default(cuid())
+  to          String
+  subject     String
+  bodyHtml    String        @db.Text
+  type        EmailType
+  provider    EmailProvider @default(ACS)
+  status      EmailStatus   @default(QUEUED)
+  campaignId  String?       // groups a batch send for reporting
+  retryCount  Int           @default(0)
+  maxRetries  Int           @default(3)
+  scheduledAt DateTime      @default(now())
+  processedAt DateTime?
+  error       String?
+  metadata    Json?
+  createdAt   DateTime      @default(now())
+
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([campaignId])
+  @@index([to])
+  @@map("email_queue")
+}
+
+// ─────────────────────────────────────────────
+// ANNOUNCEMENT
+// Admin-created global broadcasts.
+// Can be shown in-app (creates Notification rows per user)
+// and optionally queued for email (bulk via ACS).
+// ─────────────────────────────────────────────
+
+model Announcement {
+  id          String           @id @default(cuid())
+  title       String
+  body        String
+  href        String?          // optional CTA link
+  hrefLabel   String?          // CTA button label
+  type        NotificationType @default(ANNOUNCEMENT)
+  sendInApp   Boolean          @default(true)
+  sendEmail   Boolean          @default(false)
+  emailSentAt DateTime?        // set when bulk email dispatch starts
+  publishedAt DateTime?        // null = draft; set when admin publishes
+  expiresAt   DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Delivery tracking — populated on publish
+  audienceType     String    @default("all")  // "all" | "admins" | "notify_me" | "saved_work" | "specific"
+  targetUserIds    String?                    // JSON array of user IDs for audienceType = "specific"
+  scheduledAt      DateTime?                  // null = publish immediately; set = cron publishes at this time
+  recipientCount   Int       @default(0)      // in-app notifications created
+  emailQueuedCount Int       @default(0)      // EmailQueue rows created
+
+  @@index([publishedAt])
+  @@index([scheduledAt])
+  @@map("announcements")
+}
+
+// ─────────────────────────────────────────────
+// NOTIFY ME CTA
+// One CTA per work (V1). Admin-configured.
+// triggerSecondsFromEnd controls when the overlay fires during playback.
+// ─────────────────────────────────────────────
+
+model NotifyMeCta {
+  id                    String   @id @default(cuid())
+  workId                String   @unique   // one CTA per work in V1
+  type                  CtaType
+  isEnabled             Boolean  @default(true)
+  headline              String   @default("Stay in the Loop")
+  body                  String?
+  ctaLabel              String   @default("Notify Me")
+  triggerSecondsFromEnd Int      @default(30)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  work    Work             @relation(fields: [workId], references: [id], onDelete: Cascade)
+  signups NotifyMeSignup[]
+
+  @@map("notify_me_ctas")
+}
+
+// One row per email signup.
+// ctaId is nullable FK (SetNull) — signup record survives CTA deletion.
+// workId + workTitle are plain String snapshots so data is always recoverable.
+// ─────────────────────────────────────────────
+
+// ─────────────────────────────────────────────
+// REFRESH TOKEN
+// One row per active session. Rotated on every 15-minute access-token
+// renewal. Deleted on logout, suspension, deactivation, or purge.
+// Raw token is never stored — only a SHA-256 hash.
+// ─────────────────────────────────────────────
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique  // SHA-256(raw token) — raw token never stored
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+model NotifyMeSignup {
+  id        String      @id @default(cuid())
+  ctaId     String?                         // nullable FK — set to null if CTA deleted
+  workId    String                          // plain String snapshot — always preserved
+  workTitle String?                         // snapshot at time of signup
+  email     String
+  name      String?
+  createdAt DateTime    @default(now())
+
+  cta NotifyMeCta? @relation(fields: [ctaId], references: [id], onDelete: SetNull)
+
+  @@unique([ctaId, email])   // one signup per person per CTA (NULL-safe in Postgres)
+  @@index([ctaId])
+  @@index([workId])
+  @@index([email])
+  @@index([createdAt])
+  @@map("notify_me_signups")
+}
+
+// ─────────────────────────────────────────────
+// COMMENTS
+// ─────────────────────────────────────────────
+
+model Comment {
+  id         String        @id @default(cuid())
+  body       String        @db.VarChar(1000)
+  status     CommentStatus @default(PUBLISHED)
+  isPinned   Boolean       @default(false)
+  likeCount  Int           @default(0)
+  replyCount Int           @default(0)
+  editedAt   DateTime?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  workId String?
+  work   Work?   @relation(fields: [workId], references: [id], onDelete: Cascade)
+
+  parentId String?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[] @relation("CommentReplies")
+
+  likes   CommentLike[]
+  reports CommentReport[]
+
+  @@index([workId, status, createdAt])
+  @@index([parentId])
+  @@index([userId])
+  @@map("comments")
+}
+
+model CommentLike {
+  id        String   @id @default(cuid())
+  commentId String
+  userId    String
+  createdAt DateTime @default(now())
+
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([commentId, userId])
+  @@index([userId])
+  @@map("comment_likes")
+}
+
+model CommentReport {
+  id           String              @id @default(cuid())
+  reason       CommentReportReason
+  details      String?             @db.VarChar(500)
+  status       CommentReportStatus @default(OPEN)
+  createdAt    DateTime            @default(now())
+  reviewedAt   DateTime?
+  reviewedById String?
+
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation("CommentReporter", fields: [userId], references: [id], onDelete: Cascade)
+
+  reviewer User? @relation("CommentReportReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@unique([commentId, userId])
+  @@index([status])
+  @@index([commentId])
+  @@map("comment_reports")
+}
