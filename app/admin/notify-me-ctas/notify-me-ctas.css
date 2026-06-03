@@ -42,8 +42,8 @@
 /* ── Table wrapper ── */
 .nmc-table-wrap {
   overflow-x: auto;
-  border: 1px solid var(--color-brand-border);
-  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px;
 }
 
 .nmc-table {
@@ -54,16 +54,16 @@
   text-align: left; padding: 0.75rem 1rem;
   font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.07em;
   text-transform: uppercase; color: var(--color-brand-muted);
-  border-bottom: 1px solid var(--color-brand-border);
-  background: var(--color-brand-dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.015);
   white-space: nowrap;
 }
 .nmc-table tbody tr {
-  border-bottom: 1px solid var(--color-brand-border);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
   transition: background 0.12s;
 }
 .nmc-table tbody tr:last-child { border-bottom: none; }
-.nmc-table tbody tr:hover { background: var(--color-brand-surface); }
+.nmc-table tbody tr:hover { background: rgba(255,255,255,0.025); }
 .nmc-table td {
   padding: 0.875rem 1rem; vertical-align: middle;
   color: var(--color-brand-light);
@@ -84,10 +84,11 @@
   display: inline-block;
   font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-brand-white);
-  background: var(--color-brand-surface);
-  border: 1px solid var(--color-brand-border);
-  padding: 0.15rem 0.45rem; border-radius: 2px;
+  color: var(--color-brand-light);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.2rem 0.55rem; border-radius: 3px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
 }
 
 /* ── Status badges ── */
@@ -96,6 +97,7 @@
   font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
 }
 .nmc-status--active { color: #4ade80; }
+.nmc-status--active svg { filter: drop-shadow(0 0 3px rgba(74,222,128,0.4)); }
 .nmc-status--off    { color: var(--color-brand-muted); }
 
 /* ── Numeric cell ── */
