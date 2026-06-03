@@ -1,4 +1,4 @@
-# AIM Studio Lite — Setup Guide
+# Ultra AIM Studio — Setup Guide
 
 ## Prerequisites
 - Node.js 20+
@@ -25,7 +25,7 @@ Then edit `.env.local` and fill in your values:
 
 ### 3. Create Neon database
 1. Go to [neon.tech](https://neon.tech) and create a free account
-2. Create a new project → name it `aim-studio-lite`
+2. Create a new project → name it `ultra-aim-studio`
 3. Copy the **Connection String** (postgresql://...)
 4. Paste it as `DATABASE_URL` in `.env.local`
 
@@ -65,8 +65,8 @@ Open [http://localhost:3000](http://localhost:3000)
 ```bash
 git init
 git add .
-git commit -m "feat: Phase 1 foundation"
-git remote add origin https://github.com/YOUR_USERNAME/aim-studio-lite.git
+git commit -m "feat: Ultra AIM Studio Phase 1 foundation"
+git remote add origin https://github.com/Funfamm/Ultra-AIM-Studio.git
 git push -u origin main
 ```
 
@@ -76,7 +76,7 @@ git push -u origin main
 3. Add environment variables:
    - `DATABASE_URL` (from Neon)
    - `AUTH_SECRET` (same value as local)
-   - `NEXT_PUBLIC_APP_URL` (your Vercel URL, e.g. `https://aim-studio.vercel.app`)
+   - `NEXT_PUBLIC_APP_URL` (your Vercel URL, e.g. `https://ultra-aim-studio.vercel.app`)
 4. Deploy
 
 ---
@@ -85,17 +85,17 @@ git push -u origin main
 
 - [x] Next.js 15 App Router + TypeScript
 - [x] Tailwind CSS v4 with design tokens
-- [x] Prisma schema (User, Film, WatchProgress + Auth.js models)
+- [x] Prisma schema (User, Work, WatchProgress + Auth.js models)
 - [x] Auth.js v5 with credentials provider + JWT strategy
 - [x] Middleware — admin/user/auth route protection
-- [x] Server Actions — register, login, logout, film CRUD, watch progress
+- [x] Server Actions — register, login, logout, work CRUD, watch progress
 - [x] CLAUDE.md project rules
+- [x] Ultra AIM Studio rebrand complete
 - [ ] Connect Neon database
-- [ ] Run db:push
 - [ ] Create first admin user
 - [ ] Deploy to Vercel
 
 ---
 
 ## Next: Phase 2
-Public pages — Home, Works/Films grid, Film Details, Trailer Watch page.
+Public design upgrade — hero, works page, typography, animation polish.

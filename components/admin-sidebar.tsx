@@ -51,7 +51,7 @@ export default function AdminSidebar() {
           <Link href="/" className="adm-logo" onClick={close}>
             AIM<span>Studio</span>
           </Link>
-          <span className="adm-sublabel">Admin Panel</span>
+          <span className="adm-sublabel">Ultra AIM Studio</span>
         </div>
 
         {/* Nav links */}

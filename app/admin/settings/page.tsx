@@ -1,4 +1,4 @@
-// Admin Settings — singleton configuration for AIM Studio Lite
+// Admin Settings — singleton configuration for Ultra AIM Studio
 // Server-rendered form sections. Client components only for save buttons + security form.
 
 import {
