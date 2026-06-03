@@ -17,6 +17,7 @@ build/
 .env.local.example
 
 # Prisma generated client (do not commit node_modules/@prisma)
+*.tsbuildinfo
 
 # Vercel
 .vercel
