@@ -34,16 +34,17 @@ const PILL_DEFS: { label: string; collection: string; requiredTypes: string[] }[
 ];
 
 type Props = {
-  items: MobileHeroItem[];
-  isLoggedIn: boolean;
-  savedIds: string[];
+  items:          MobileHeroItem[];
+  isLoggedIn:     boolean;
+  savedIds:       string[];
   availableTypes: string[];
+  mobileBg?:      string | null;
 };
 
 const ROTATE_MS = 7000; // auto-rotation interval
 const RESUME_MS = 3000; // pause after interaction before resuming
 
-export default function MobileFeaturedHero({ items, isLoggedIn, savedIds, availableTypes }: Props) {
+export default function MobileFeaturedHero({ items, isLoggedIn, savedIds, availableTypes, mobileBg = null }: Props) {
   const [active, setActive] = useState(0);
   const count = items.length;
 
@@ -126,7 +127,11 @@ export default function MobileFeaturedHero({ items, isLoggedIn, savedIds, availa
   }
 
   return (
-    <section className="mfh" aria-label="Featured works">
+    <section
+      className="mfh"
+      aria-label="Featured works"
+      style={mobileBg ? { backgroundImage: `url(${mobileBg})`, backgroundSize: "cover", backgroundPosition: "center top" } : undefined}
+    >
 
       {/* ── Category pills ── */}
       <div className="mfh-pills-wrap">

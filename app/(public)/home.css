@@ -42,10 +42,15 @@
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 6vw, 6rem);
-  font-weight: 700; line-height: 1.03; letter-spacing: -0.035em;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 700; line-height: 1.06; letter-spacing: -0.035em;
   color: var(--color-brand-white); margin: 0 0 1.25rem;
   text-shadow: 0 2px 24px rgba(0,0,0,0.55);
+}
+.hero-title-accent {
+  font-style: italic;
+  color: var(--color-brand-accent);
+  text-shadow: 0 0 48px rgba(232,201,126,0.35), 0 2px 24px rgba(0,0,0,0.55);
 }
 .hero-desc {
   font-family: var(--font-body); font-size: 1.0625rem;
@@ -244,6 +249,43 @@
   line-height: 1.65; color: rgba(255,255,255,0.4); margin: 0;
 }
 .si-card:hover .si-card-desc { color: rgba(255,255,255,0.55); }
+
+/* ── PageMedia background canvas (sits behind Work hero rotator) ── */
+.hero-pagemedia-wrap {
+  position: absolute;
+  inset: 0;
+}
+.hero-pagemedia-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Stats pill ── */
+.hero-stats {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-top: 2.25rem; flex-wrap: wrap;
+}
+.hero-stat {
+  display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+}
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 1.75rem; font-weight: 700; line-height: 1;
+  color: var(--color-brand-accent);
+}
+.hero-stat-label {
+  font-family: var(--font-body); font-size: 0.625rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.hero-stat-sep {
+  width: 1px; height: 2.25rem;
+  background: rgba(255,255,255,0.12); flex-shrink: 0;
+}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {

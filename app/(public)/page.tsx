@@ -6,6 +6,7 @@ import FilmRail from "@/components/film-rail";
 import MobileFeaturedHero from "@/components/mobile-featured-hero";
 import HeroDesktopSection from "@/components/hero-desktop-section";
 import { getWorkCtaState } from "@/lib/work-cta";
+import { getPageMedia } from "@/lib/page-media";
 import { Play, ChevronRight } from "lucide-react";
 import "./home.css";
 
@@ -90,14 +91,36 @@ export default async function HomePage() {
   const session = await auth();
   const userId = session?.user?.id ?? null;
 
-  const [{ featured, newReleases }, continueWatching, savedIds, availableTypes] = await Promise.all([
+  const [
+    { featured, newReleases },
+    continueWatching,
+    savedIds,
+    availableTypes,
+    homeMedia,
+    filmsCount,
+    upcomingCount,
+  ] = await Promise.all([
     getHomeWorks(),
     userId
       ? getContinueWatching(userId)
       : Promise.resolve([] as Awaited<ReturnType<typeof getContinueWatching>>),
     userId ? getSavedIds(userId) : Promise.resolve<string[]>([]),
     getPublishedTypes(),
+    getPageMedia("home"),
+    prisma.work.count({ where: { status: "PUBLISHED", type: { not: "EPISODE" } } }),
+    prisma.work.count({ where: { status: { in: ["UPCOMING", "IN_PRODUCTION"] }, type: { not: "EPISODE" } } }),
   ]);
+
+  // PageMedia background for homepage hero
+  const desktopBg = homeMedia.find(
+    (m) => m.deviceTarget === "DESKTOP" || m.deviceTarget === "BOTH"
+  ) ?? null;
+  const mobileBgUrl =
+    homeMedia.find(
+      (m) => (m.deviceTarget === "MOBILE" || m.deviceTarget === "BOTH") && m.mediaType === "IMAGE"
+    )?.imageUrl || null;
+
+  const stats = { films: filmsCount, upcoming: upcomingCount, openRoles: 0 };
 
   const featuredWithPosters = featured.filter((w) => w.posterUrl != null).slice(0, 5);
 
@@ -153,14 +176,12 @@ export default async function HomePage() {
         isLoggedIn={!!userId}
         savedIds={savedIds}
         availableTypes={availableTypes}
+        mobileBg={mobileBgUrl}
       />
 
       {/* ── Desktop cinematic hero (≥768px) ──────────── */}
-      {/* HeroDesktopSection is a client component that syncs CTA buttons   */}
-      {/* with the active rotator slide — fixes "Watch Short" staying on    */}
-      {/* screen while a Series (Grandpa's Diary) is displayed.             */}
       <section className="hero">
-        <HeroDesktopSection items={heroDesktopItems} />
+        <HeroDesktopSection items={heroDesktopItems} pageBg={desktopBg} stats={stats} />
       </section>
 
       {/* ── Continue Watching ───────────────────────── */}
