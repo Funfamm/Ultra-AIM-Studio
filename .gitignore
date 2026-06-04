@@ -14,10 +14,13 @@ build/
 .env
 .env.local
 .env.*.local
-.env.local.example
+.env.production
+.env.development
+# Safe to track — contains placeholders only, no real secrets
+!.env.local.example
 
-# Prisma generated client
-prisma/migrations/
+# Prisma generated client (do not commit node_modules/@prisma)
+*.tsbuildinfo
 
 # Vercel
 .vercel

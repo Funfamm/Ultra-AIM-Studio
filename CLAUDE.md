@@ -1,4 +1,4 @@
-# CLAUDE.md
+# CLAUDE.md — Ultra AIM Studio
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -30,7 +30,7 @@ There is no test framework configured.
 
 ## Architecture
 
-**Next.js 15 App Router** full-stack app — a cinematic video streaming platform with admin film management and user authentication.
+**Next.js 15 App Router** full-stack app — Ultra AIM Studio, a cinematic video streaming platform with admin film management and user authentication.
 
 ### Route groups
 
@@ -147,10 +147,10 @@ Get-ChildItem -Directory | ForEach-Object {
 }
 ```
 
-Reference repos live at `C:\Users\mxz\Desktop\ai-agent-repos`. Use for inspiration only — never install packages from them into AIM Studio Lite.
+Reference repos live at `C:\Users\mxz\Desktop\ai-agent-repos`. Use for inspiration only — never install packages from them into Ultra AIM Studio.
 
 ---
 
 ## Out of scope for v1
 
-Multilingual/i18n, watch party, payment/subscription, notifications, casting system, training hub, advanced analytics, RAG/memory system, AI automation.
+Multilingual/i18n, watch party, payment/subscription, casting system, training hub, advanced analytics, RAG/memory system, AI automation.

@@ -1,8 +1,11 @@
 // Follow-up read-only queries — targeted specifics for migration planning.
 import { PrismaClient } from "@prisma/client";
 
-const OLD_DB_URL =
-  "postgresql://neondb_owner:npg_2jrMNVBU3IkY@ep-dry-resonance-amkkbusx-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require";
+const OLD_DB_URL = process.env.SOURCE_DATABASE_URL;
+if (!OLD_DB_URL) {
+  console.error("SOURCE_DATABASE_URL not set. Set it to the old database connection string before running.");
+  process.exit(1);
+}
 
 const prisma = new PrismaClient({
   datasources: { db: { url: OLD_DB_URL } },

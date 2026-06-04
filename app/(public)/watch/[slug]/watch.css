@@ -1,4 +1,4 @@
-.watch-page { padding: 2rem 0 6rem; }
+.watch-page { padding: 1.5rem 0 6rem; background: #000; }
 .watch-back {
   display: inline-flex; align-items: center; gap: 0.3rem;
   font-family: var(--font-body); font-size: 0.8rem;
@@ -25,7 +25,7 @@
 .watch-player-wrap {
   position: relative; width: 100%; aspect-ratio: 16/9;
   background: #000; border-radius: 4px; overflow: hidden;
-  border: 1px solid var(--color-brand-border);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 8px 40px rgba(0,0,0,0.85);
 }
 
 /* Mobile: bleed out of container-app so player is full-viewport-width */
@@ -54,10 +54,14 @@
 }
 
 /* ── Info ── */
-.watch-info { padding: 1.5rem 0; max-width: 720px; }
+.watch-info {
+  padding: 1.25rem 0 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  max-width: 720px;
+}
 .watch-title {
   font-family: var(--font-display); font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 700; letter-spacing: -0.01em;
+  font-weight: 700; letter-spacing: -0.02em;
   color: var(--color-brand-white); margin: 0 0 0.75rem;
 }
 .watch-desc {
@@ -76,7 +80,8 @@
 .watch-upsell {
   display: inline-flex; align-items: center; gap: 0.5rem;
   font-family: var(--font-body); font-size: 0.85rem; color: var(--color-brand-muted);
-  background: var(--color-brand-surface); border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-surface); border: 1px solid rgba(232,201,126,0.12);
+  border-left: 3px solid var(--color-brand-accent);
   padding: 0.75rem 1.25rem; border-radius: 4px;
 }
 .watch-upsell a { color: var(--color-brand-accent); text-decoration: none; }
@@ -223,7 +228,7 @@
   position: absolute; bottom: calc(100% + 8px); left: 0;
   background: rgba(10,10,10,0.92); border: 1px solid rgba(255,255,255,0.12);
   border-radius: 8px; min-width: 110px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
   /* Constrain within the player (overflow:hidden parent clips menus that go too high) */
   max-height: 11rem; overflow-y: auto;
 }
@@ -248,7 +253,7 @@
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 8px; padding: 1rem 1.25rem;
   width: 240px; pointer-events: auto;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
 }
 .up-next-eyebrow {
   font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;

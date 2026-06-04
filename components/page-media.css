@@ -1,0 +1,15 @@
+/* Page Media — device target utilities and shared styles */
+
+/* Desktop-only: hide on mobile (<768px) */
+.pm-desktop-only { display: block; }
+@media (max-width: 767px) {
+  .pm-desktop-only { display: none; }
+}
+
+/* Mobile-only: hide on desktop (>=768px) */
+.pm-mobile-only { display: none; }
+@media (max-width: 767px) {
+  .pm-mobile-only { display: block; }
+}
+
+/* pm-both: always visible — no class needed; kept for reference */

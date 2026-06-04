@@ -6,6 +6,7 @@ import FilmRail from "@/components/film-rail";
 import MobileFeaturedHero from "@/components/mobile-featured-hero";
 import HeroDesktopSection from "@/components/hero-desktop-section";
 import { getWorkCtaState } from "@/lib/work-cta";
+import { getPageMedia } from "@/lib/page-media";
 import { Play, ChevronRight } from "lucide-react";
 import "./home.css";
 
@@ -90,14 +91,32 @@ export default async function HomePage() {
   const session = await auth();
   const userId = session?.user?.id ?? null;
 
-  const [{ featured, newReleases }, continueWatching, savedIds, availableTypes] = await Promise.all([
+  const [
+    { featured, newReleases },
+    continueWatching,
+    savedIds,
+    availableTypes,
+    homeMedia,
+    filmsCount,
+    upcomingCount,
+  ] = await Promise.all([
     getHomeWorks(),
     userId
       ? getContinueWatching(userId)
       : Promise.resolve([] as Awaited<ReturnType<typeof getContinueWatching>>),
     userId ? getSavedIds(userId) : Promise.resolve<string[]>([]),
     getPublishedTypes(),
+    getPageMedia("home"),
+    prisma.work.count({ where: { status: "PUBLISHED", type: { not: "EPISODE" } } }),
+    prisma.work.count({ where: { status: { in: ["UPCOMING", "IN_PRODUCTION"] }, type: { not: "EPISODE" } } }),
   ]);
+
+  // PageMedia background for homepage hero — desktop only
+  const desktopBg = homeMedia.find(
+    (m) => m.deviceTarget === "DESKTOP" || m.deviceTarget === "BOTH"
+  ) ?? null;
+
+  const stats = { films: filmsCount, upcoming: upcomingCount, openRoles: 0 };
 
   const featuredWithPosters = featured.filter((w) => w.posterUrl != null).slice(0, 5);
 
@@ -156,11 +175,8 @@ export default async function HomePage() {
       />
 
       {/* ── Desktop cinematic hero (≥768px) ──────────── */}
-      {/* HeroDesktopSection is a client component that syncs CTA buttons   */}
-      {/* with the active rotator slide — fixes "Watch Short" staying on    */}
-      {/* screen while a Series (Grandpa's Diary) is displayed.             */}
       <section className="hero">
-        <HeroDesktopSection items={heroDesktopItems} />
+        <HeroDesktopSection items={heroDesktopItems} pageBg={desktopBg} stats={stats} />
       </section>
 
       {/* ── Continue Watching ───────────────────────── */}
@@ -171,7 +187,7 @@ export default async function HomePage() {
       {/* ── Featured Works ──────────────────────────── */}
       <FilmRail
         title="Featured Works"
-        label="— Now Streaming"
+        label="— Original Cinema"
         href="/works"
         films={featured}
         priority
@@ -208,7 +224,7 @@ export default async function HomePage() {
 
             {/* Left — headline + copy + CTAs */}
             <div className="si-left">
-              <span className="si-eyebrow">Why AIM Studio</span>
+              <span className="si-eyebrow">— The Studio</span>
               <h2 className="si-headline">
                 Cinema for the moments<br />
                 we can&apos;t take back.

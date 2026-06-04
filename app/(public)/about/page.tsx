@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getPageMedia } from "@/lib/page-media";
+import PageMediaVideo from "@/components/page-media-video";
 import "./about.css";
 
 export const metadata: Metadata = {
@@ -7,7 +9,10 @@ export const metadata: Metadata = {
   description: "Cinema for the moments we can't take back. Why AIM Studio exists.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const media = await getPageMedia("about");
+  const hero  = media[0] ?? null; // first by sortOrder; null = use static fallback
+
   return (
     <main className="ab">
 
@@ -23,6 +28,35 @@ export default function AboutPage() {
             AIM Studio tells stories about sacrifice, regret, memory, and the people who refuse to look away.
           </p>
           <p className="ab-hero-secondary">AI is the tool. The feeling is the reason.</p>
+        </div>
+      </section>
+
+      {/* ── 1.5 Cinematic Image ───────────────────────── */}
+      <section className="ab-image-sect">
+        <div className="container-app">
+          <div className="ab-hero-image-wrap">
+            {hero ? (
+              hero.mediaType === "VIDEO" ? (
+                <PageMediaVideo item={hero} mediaClassName="ab-hero-image" />
+              ) : (
+                <img
+                  src={hero.imageUrl || hero.posterUrl}
+                  alt={hero.altText || "AIM Studio — cinematic film frame"}
+                  className="ab-hero-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )
+            ) : (
+              <img
+                src="/images/about-cinematic.jpg"
+                alt="AIM Studio — cinematic film frame"
+                className="ab-hero-image"
+                loading="lazy"
+              />
+            )}
+            <div className="ab-hero-image-overlay" />
+          </div>
         </div>
       </section>
 

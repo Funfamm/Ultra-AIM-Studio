@@ -1,4 +1,4 @@
-/* AIM Studio Lite — Global Styles
+/* Ultra AIM Studio — Global Styles
    Tailwind v4: CSS-first configuration */
 
 @import "tailwindcss";
@@ -156,8 +156,8 @@ a {
 /* ── Cinematic glass card ──────────────────────────── */
 .glass-card {
   background: rgba(17, 17, 17, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-glass);
   border-radius: var(--radius-lg);

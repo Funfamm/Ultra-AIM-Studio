@@ -151,16 +151,16 @@ The admin panel utilizes strict CSS media queries (`max-width: 768px`) to aggres
 
 ## OPERATIONAL SECTIONS
 
-*The following four sections govern how this blueprint is applied in AIM Studio Lite V1.*
+*The following four sections govern how this blueprint is applied in Ultra AIM Studio V1.*
 
 ---
 
-## SECTION 1 — ACTIVE FOR AIM STUDIO LITE V1
+## SECTION 1 — ACTIVE FOR ULTRA AIM STUDIO V1
 
 Build and improve these admin areas now. These are cleared for immediate implementation.
 
 ### Admin Shell
-- Premium sidebar with AIM Studio wordmark + "Admin Panel" subtitle
+- Premium sidebar with AIM Studio wordmark + "Ultra AIM Studio" subtitle
 - Collapsible on mobile (slide-out drawer with backdrop)
 - Active nav state: clear highlight on current route
 - `← Back to Site` link at bottom of sidebar, separated by a border
@@ -250,9 +250,9 @@ Do not place this copy in the platform until the module is ready to ship:
 
 ---
 
-## SECTION 3 — LITE PERFORMANCE RULES
+## SECTION 3 — PERFORMANCE RULES
 
-These rules apply to every admin page and component in AIM Studio Lite. No exceptions.
+These rules apply to every admin page and component in Ultra AIM Studio. No exceptions.
 
 - **No chart libraries.** No Recharts, Chart.js, Nivo, Victory, D3, or similar. Use CSS-only stat cards for V1. Ask before installing any chart library.
 - **No voice/AI features.** The SpeechSynthesis API and AI Insights chat require real infrastructure and intentional design. Do not stub these in.

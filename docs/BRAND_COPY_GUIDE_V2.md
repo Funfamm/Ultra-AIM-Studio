@@ -107,11 +107,11 @@ The visual language is defined as an **"Ultra-Premium Cinematic Design System."*
 
 ## OPERATIONAL SECTIONS
 
-*The following five sections govern how this guide is applied in AIM Studio Lite V1.*
+*The following five sections govern how this guide is applied in Ultra AIM Studio V1.*
 
 ---
 
-## SECTION 1 — ACTIVE FOR AIM STUDIO LITE V1
+## SECTION 1 — ACTIVE FOR ULTRA AIM STUDIO V1
 
 Use this copy and tone now. These are cleared for immediate implementation.
 
@@ -192,7 +192,7 @@ These elements guide **visual direction only**. They must not force new features
 **Premium Typography:**
 - Playfair Display for display/h1/h2 moments: already implemented — keep and reinforce
 - Tight letter-spacing (`-0.02em` to `-0.03em`) on hero headlines: active
-- Source guide uses "Outfit" + "Inter" — do not switch fonts. AIM Studio Lite uses Playfair Display + DM Sans. This is the approved type stack.
+- Source guide uses "Outfit" + "Inter" - do not switch fonts. Ultra AIM Studio uses Cormorant Garamond + Manrope. This is the approved type stack.
 - Gold gradient text clip on hero accent words: allowed sparingly (one per section)
 
 **Micro-Interaction Language (CSS-only only):**
@@ -245,9 +245,9 @@ Do not place this copy on the platform until the feature is ready to ship:
 
 ---
 
-## SECTION 4 — LITE PERFORMANCE RULES
+## SECTION 4 — PERFORMANCE RULES
 
-These rules apply to every page, component, and feature in AIM Studio Lite. No exceptions.
+These rules apply to every page, component, and feature in Ultra AIM Studio. No exceptions.
 
 ### 4G Performance Constraints
 - **No background video.** Not on the homepage, not on the About page, not anywhere.
@@ -261,7 +261,7 @@ These rules apply to every page, component, and feature in AIM Studio Lite. No e
 - **Posters/thumbnails first.** Never load a video until the user explicitly clicks play.
 - **Lazy load images.** Only the first 3–4 above-fold images use `priority={true}`. All others are lazy.
 - **Limited glassmorphism.** One or two `backdrop-filter: blur(8px–12px)` elements per page maximum. Never blur every card.
-- **Minimal `backdrop-filter`.** The source guide specifies `blur(24px–30px)` — this is too heavy on mobile. Cap at `blur(12px)` on AIM Studio Lite.
+- **Minimal `backdrop-filter`.** The source guide specifies `blur(24px–30px)` — this is too heavy on mobile. Cap at `blur(12px)` on Ultra AIM Studio.
 - **Keep DB queries lean.** Homepage and works page queries must select only the fields needed. Do not over-fetch.
 - **Keep future features inactive.** Documented-but-inactive features add no weight. Don't pre-build scaffolding.
 
@@ -288,7 +288,7 @@ Read this section before making any copy, design, or code change.
 ### Design Rules
 11. Follow `docs/DESIGN_SYSTEM.md` for all color tokens, spacing, button specs, and component patterns.
 12. This guide (V2) takes precedence over V1 for **copy and tone**. `DESIGN_SYSTEM.md` takes precedence for **visual spec and tokens**.
-13. The source guide's font stack (Outfit + Inter) does not override AIM Studio Lite's approved fonts (Playfair Display + DM Sans). Do not install new fonts.
+13. The source guide's font stack (Outfit + Inter) does not override Ultra AIM Studio's approved fonts (Cormorant Garamond + Manrope). Do not install new fonts.
 14. The source guide's color palette does not override the `brand-*` token system in `globals.css`. Map inspiration to existing tokens — never add arbitrary hex values.
 15. Glassmorphism, gold accents, and cinematic shadows are allowed within the constraints of Section 2 and Section 4. When in doubt, do less.
 
@@ -296,4 +296,4 @@ Read this section before making any copy, design, or code change.
 16. Run `npm run build` after every meaningful change. Do not report a task complete if the build fails.
 17. Test at 375px mobile width before marking any UI task done.
 18. Never commit `.env`, `.env.local`, or any secrets file.
-19. Never run `db:push`, `db:migrate`, or `db:seed` without explicit approval confirming the target database is AIM Studio Lite (`ep-misty-butterfly`).
+19. Never run `db:push`, `db:migrate`, or `db:seed` without explicit approval confirming the target database is Ultra AIM Studio.

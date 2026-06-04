@@ -34,9 +34,9 @@ const PILL_DEFS: { label: string; collection: string; requiredTypes: string[] }[
 ];
 
 type Props = {
-  items: MobileHeroItem[];
-  isLoggedIn: boolean;
-  savedIds: string[];
+  items:          MobileHeroItem[];
+  isLoggedIn:     boolean;
+  savedIds:       string[];
   availableTypes: string[];
 };
 

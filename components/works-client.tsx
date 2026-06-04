@@ -90,7 +90,7 @@ const RAILS: Rail[] = [
 ];
 
 type Props = {
-  works: Work[];
+  works:       Work[];
   collection?: string;
   isLoggedIn?: boolean;
 };
@@ -193,11 +193,10 @@ export default function WorksClient({ works, collection, isLoggedIn = false }: P
           <div className="wc-hero-gradient" />
         </div>
         <div className="container-app wc-hero-content">
-          <p className="wc-eyebrow">— All Works</p>
+          <p className="wc-eyebrow">— The Collection</p>
           <h1 className="wc-title">The Films</h1>
           <p className="wc-subtitle">
             Every story we&apos;ve told. Every world we&apos;ve built.
-            Independent cinema for a new era.
           </p>
           <div className="wc-search-wrap">
             <svg className="wc-search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true" width={16} height={16}>

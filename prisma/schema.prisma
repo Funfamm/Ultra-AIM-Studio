@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ─────────────────────────────────────────────
@@ -112,6 +113,17 @@ enum DeviceType {
   DESKTOP
   BOT
   UNKNOWN
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum DeviceTarget {
+  DESKTOP
+  MOBILE
+  BOTH
 }
 
 // ── UserStatus — extended for soft-delete and purge lifecycle ──
@@ -1058,4 +1070,33 @@ model CommentReport {
   @@index([status])
   @@index([commentId])
   @@map("comment_reports")
+}
+
+// ─────────────────────────────────────────────
+// PAGE MEDIA
+// Site-wide background and hero asset management.
+// Admins assign media to pages via URL — no upload system in Stage 1.
+// page is String (not enum) so new pages can be added without a migration.
+// ─────────────────────────────────────────────
+
+model PageMedia {
+  id           String       @id @default(cuid())
+  page         String
+  mediaType    MediaType    @default(IMAGE)
+  deviceTarget DeviceTarget @default(BOTH)
+  imageUrl     String       @default("")
+  videoUrl     String       @default("")
+  posterUrl    String       @default("")
+  altText      String       @default("")
+  title        String       @default("")
+  sortOrder    Int          @default(0)
+  active       Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([page])
+  @@index([active])
+  @@index([page, deviceTarget])
+  @@index([page, active, sortOrder])
+  @@map("page_media")
 }

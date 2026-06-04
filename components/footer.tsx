@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="footer-brand">
             <span className="footer-logo">AIM<span>Studio</span></span>
             <p className="footer-tagline">
-              Stories that refuse to look away.
+              Cinema about sacrifice, regret, and the people we refuse to look away from.
             </p>
           </div>
           <nav className="footer-links">
@@ -21,7 +21,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span className="footer-motto">DON&apos;T LOOK AWAY.</span>
-          <span className="footer-copy">© {new Date().getFullYear()} AIM Studio · Cinema, reimagined.</span>
+          <span className="footer-copy">© {new Date().getFullYear()} AIM Studio · All rights reserved.</span>
         </div>
       </div>
     </footer>

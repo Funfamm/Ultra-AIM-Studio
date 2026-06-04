@@ -2,13 +2,13 @@
 .wc-hero {
   position: relative;
   overflow: hidden;
-  min-height: 420px;
+  min-height: 500px;
   display: flex;
   align-items: flex-end;
   padding-bottom: 3rem;
   background-color: #050505;
 }
-@media (min-width: 768px) { .wc-hero { min-height: 540px; } }
+@media (min-width: 768px) { .wc-hero { min-height: 560px; } }
 .wc-hero-bg {
   position: absolute;
   inset: 0;
@@ -39,7 +39,7 @@
 .wc-title {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 700; letter-spacing: -0.03em; line-height: 1.08;
+  font-weight: 700; letter-spacing: -0.04em; line-height: 1.08;
   color: var(--color-brand-white); margin: 0 0 1rem;
   text-shadow: 0 2px 16px rgba(0,0,0,0.4);
 }
@@ -123,11 +123,11 @@
 /* ── Rails ── */
 .wc-rails { padding-bottom: 5rem; }
 .wc-rail {
-  padding-top: 2.5rem;
+  padding-top: 3.5rem;
   position: relative;
 }
-@media (min-width: 768px) { .wc-rail { padding-top: 3rem; } }
-@media (min-width: 1024px) { .wc-rail { padding-top: 4rem; } }
+@media (min-width: 768px) { .wc-rail { padding-top: 3.5rem; } }
+@media (min-width: 1024px) { .wc-rail { padding-top: 4.5rem; } }
 
 /* Subtle gold divider between rails */
 .wc-rail + .wc-rail::before {
@@ -147,7 +147,7 @@
   );
 }
 
-.wc-rail-head { margin-bottom: 1.5rem; }
+.wc-rail-head { margin-bottom: 2rem; }
 .wc-rail-eyebrow {
   display: inline-block;
   font-family: var(--font-body); font-size: 0.5625rem; font-weight: 700;

@@ -8,9 +8,15 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = process.env.SEED_ADMIN_EMAIL || "admin@aimstudio.com";
-  const password = process.env.SEED_ADMIN_PASSWORD || "changeme123";
-  const name = "AIM Admin";
+  const email    = process.env.SEED_ADMIN_EMAIL    || "admin@aimstudio.com";
+  const password = process.env.SEED_ADMIN_PASSWORD;
+  const name     = "AIM Admin";
+
+  if (!password) {
+    console.error("❌ SEED_ADMIN_PASSWORD is not set. Add it to your .env file before running the seed.");
+    console.error("   Example: SEED_ADMIN_PASSWORD=your-strong-password");
+    process.exit(1);
+  }
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
@@ -25,7 +31,6 @@ async function main() {
   });
 
   console.log(`✅ Admin user created: ${user.email}`);
-  console.log(`   Password: ${password}`);
   console.log(`   ⚠  Change the password after first login!`);
 }
 

@@ -1,4 +1,4 @@
-# AIM Studio Lite — Design System
+# Ultra AIM Studio — Design System
 
 **Status:** Approved. All UI work must follow this document.
 **Last updated:** 2026-05-23
@@ -9,7 +9,7 @@
 
 **Three words: Authoritative. Cinematic. Restrained.**
 
-AIM Studio Lite operates at the intersection of:
+Ultra AIM Studio operates at the intersection of:
 - **Netflix** — media browsing mastery, horizontal rails, hero treatment, hover overlays
 - **A24** — editorial restraint, bold type, confidence through whitespace, image respect
 - **Apple** — 8pt spatial discipline, minimal UI chrome, one purposeful CTA per view

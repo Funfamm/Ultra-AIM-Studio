@@ -1,4 +1,10 @@
 {
+  "buildCommand": "npm run vercel-build",
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  },
   "crons": [
     {
       "path": "/api/cron/morning-report",

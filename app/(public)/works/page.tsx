@@ -30,5 +30,12 @@ export default async function WorksPage({ searchParams }: Props) {
     searchParams,
     auth(),
   ]);
-  return <WorksClient works={works} collection={collection} isLoggedIn={!!session?.user} />;
+
+  return (
+    <WorksClient
+      works={works}
+      collection={collection}
+      isLoggedIn={!!session?.user}
+    />
+  );
 }
