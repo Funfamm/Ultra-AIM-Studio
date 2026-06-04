@@ -111,14 +111,10 @@ export default async function HomePage() {
     prisma.work.count({ where: { status: { in: ["UPCOMING", "IN_PRODUCTION"] }, type: { not: "EPISODE" } } }),
   ]);
 
-  // PageMedia background for homepage hero
+  // PageMedia background for homepage hero — desktop only
   const desktopBg = homeMedia.find(
     (m) => m.deviceTarget === "DESKTOP" || m.deviceTarget === "BOTH"
   ) ?? null;
-  const mobileBgUrl =
-    homeMedia.find(
-      (m) => (m.deviceTarget === "MOBILE" || m.deviceTarget === "BOTH") && m.mediaType === "IMAGE"
-    )?.imageUrl || null;
 
   const stats = { films: filmsCount, upcoming: upcomingCount, openRoles: 0 };
 
@@ -176,7 +172,6 @@ export default async function HomePage() {
         isLoggedIn={!!userId}
         savedIds={savedIds}
         availableTypes={availableTypes}
-        mobileBg={mobileBgUrl}
       />
 
       {/* ── Desktop cinematic hero (≥768px) ──────────── */}

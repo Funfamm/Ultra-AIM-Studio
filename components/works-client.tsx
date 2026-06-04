@@ -93,10 +93,9 @@ type Props = {
   works:       Work[];
   collection?: string;
   isLoggedIn?: boolean;
-  pageBg?:     string | null;
 };
 
-export default function WorksClient({ works, collection, isLoggedIn = false, pageBg = null }: Props) {
+export default function WorksClient({ works, collection, isLoggedIn = false }: Props) {
   const [tab, setTab] = useState<Tab>(() => {
     if (collection && COLLECTION_TO_TAB[collection]) return COLLECTION_TO_TAB[collection];
     return "ALL";
@@ -188,10 +187,7 @@ export default function WorksClient({ works, collection, isLoggedIn = false, pag
   return (
     <main>
       {/* ── Hero ─────────────────────────────────────── */}
-      <section
-        className="wc-hero"
-        style={pageBg ? { backgroundImage: `url(${pageBg})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
-      >
+      <section className="wc-hero">
         <div className="wc-hero-bg">
           <HeroRotator items={heroItems} />
           <div className="wc-hero-gradient" />

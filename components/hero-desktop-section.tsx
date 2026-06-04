@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import HeroRotator, { type HeroItem } from "./hero-rotator";
@@ -22,18 +23,26 @@ type Props = {
 };
 
 export default function HeroDesktopSection({ items, pageBg = null, stats }: Props) {
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const handleSlideChange = useCallback((idx: number) => {
+    setActiveIdx(idx);
+  }, []);
+
   const heroItems: HeroItem[] = items.map((item) => ({
-    posterUrl:     item.posterUrl,
-    title:         item.title,
-    slug:          item.slug,
-    heroMobileUrl: item.heroMobileUrl,
+    posterUrl:      item.posterUrl,
+    title:          item.title,
+    slug:           item.slug,
+    heroMobileUrl:  item.heroMobileUrl,
     heroDesktopUrl: item.heroDesktopUrl,
   }));
+
+  const current = items[activeIdx] ?? items[0];
 
   return (
     <>
       <div className="hero-bg">
-        {/* PageMedia canvas background — sits behind Work hero images */}
+        {/* PageMedia canvas background — desktop only, sits behind Work hero images */}
         {pageBg && (
           pageBg.mediaType === "VIDEO" ? (
             <PageMediaVideo
@@ -51,7 +60,7 @@ export default function HeroDesktopSection({ items, pageBg = null, stats }: Prop
             />
           )
         )}
-        <HeroRotator items={heroItems} />
+        <HeroRotator items={heroItems} onSlideChange={handleSlideChange} />
         <div className="hero-bg-gradient" />
       </div>
 
@@ -66,11 +75,22 @@ export default function HeroDesktopSection({ items, pageBg = null, stats }: Prop
           people refuse to look away from.
         </p>
         <div className="hero-actions">
-          <Link href="/works" className="hero-btn-primary">
-            <Play size={16} fill="currentColor" /> Watch the Films
-          </Link>
-          <Link href="/register" className="hero-btn-trailer">
-            Join the Next One
+          {current?.primaryLabel ? (
+            <Link href={current.primaryHref} className="hero-btn-primary">
+              <Play size={16} fill="currentColor" /> {current.primaryLabel}
+            </Link>
+          ) : (
+            <Link href={current ? `/works/${current.slug}` : "/works"} className="hero-btn-primary">
+              <Play size={16} fill="currentColor" /> View Details
+            </Link>
+          )}
+          {current?.secondaryLabel && current?.secondaryHref && (
+            <Link href={current.secondaryHref} className="hero-btn-trailer">
+              {current.secondaryLabel}
+            </Link>
+          )}
+          <Link href="/about" className="hero-btn-secondary">
+            Our Story
           </Link>
         </div>
         {stats && (
